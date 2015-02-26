@@ -12,39 +12,17 @@
         <link rel="stylesheet" href="assets/css/bootstrap.css" />
         <link rel="stylesheet" href="assets/css/font-awesome.css" />
 
-        <!-- page specific plugin styles -->
-
         <!-- text fonts -->
         <link rel="stylesheet" href="assets/css/ace-fonts.css" />
-
         <!-- ace styles -->
         <link rel="stylesheet" href="assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
-
-        <!--[if lte IE 9]>
-                <link rel="stylesheet" href="../assets/css/ace-part2.css" class="ace-main-stylesheet" />
-        <![endif]-->
-
-        <!--[if lte IE 9]>
-          <link rel="stylesheet" href="../assets/css/ace-ie.css" />
-        <![endif]-->
-
-        <!-- inline styles related to this page -->
-
         <!-- ace settings handler -->
         <script src="assets/js/ace-extra.js"></script>
-
-        <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-        <!--[if lte IE 8]>
-        <script src="../assets/js/html5shiv.js"></script>
-        <script src="../assets/js/respond.js"></script>
-        <![endif]-->
 
         <link rel="stylesheet" href="css/index.css" />
     </head>
 
     <body class="no-skin">
-        <!-- #section:basics/navbar.layout -->
         <div id="navbar" class="navbar navbar-default">
             <script type="text/javascript">
                 try {
@@ -68,7 +46,7 @@
                 <div class="navbar-header pull-left" onclick="navigateHome()">
                     <a href="#" class="navbar-brand">
                         <small>
-                            <image class="main-logo" src="images/AstroPayCard.png" alt="logo"/>
+                            <image class="main-logo" src="images/AstroPay.png" alt="logo"/>
                         </small>
                         <small class="small-subtitle color-astropay">
                             <i class="ace-icon fa fa-angle-double-right"></i>
@@ -76,8 +54,6 @@
                         </small>
                     </a>
                 </div>
-
-
             </div><!-- /.navbar-container -->
         </div>
 
@@ -91,7 +67,7 @@
             </script>
 
             <!-- #section:basics/sidebar -->
-            <div id="sidebar" class="sidebar                  responsive">
+            <div id="sidebar" class="sidebar responsive">
                 <script type="text/javascript">
                     try {
                         ace.settings.check('sidebar', 'fixed')
@@ -101,20 +77,28 @@
 
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-                        <button class="btn background-color-apc" onclick="navigateAPC()">
-                            Card
+                        <button class="btn background-color-apd" onclick="navigateAPD()">
+                            Direct
                         </button>
 
-                        <button class="btn background-color-cashout-card" onclick="navigateCashoutCards()">
+                        <button class="btn background-color-full-api" onclick="navigateFullAPI()">
+                            Full API
+                        </button>
+
+                        <button class="btn background-color-rounders" onclick="navigateRounders()">
+                            Rounders
+                        </button>
+
+                        <button class="btn background-color-cashout" onclick="navigateCashout()">
                             Cashout
                         </button>
 
                     </div>
                 </div><!-- /.sidebar-shortcuts -->
- 
-                <!--APC menu-->
-                <ul class="nav nav-list" id="apc-menu">                    
-                       <li class="" data-div="cc_considerations">
+
+                <!--  apd-menu  -->
+                <ul class="nav nav-list" id="apd-menu">                    
+                    <li class="" data-div="cc_considerations">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text"> Considerations </span>
@@ -143,7 +127,7 @@
                         </ul>
                     </li>
 
-                     <li class="go" data-div="cc_howtostart">
+                    <li class="go" data-div="cc_howtostart">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text">
@@ -151,7 +135,7 @@
                             </span>
                         </a>
                     </li>
-                    
+
                     <li class="">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
@@ -170,7 +154,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li class="" id="cc_validator">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
@@ -197,7 +181,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                             <li class="go" data-div="cc_validator_example">
+                            <li class="go" data-div="cc_validator_example">
                                 <a href="#" >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Example
@@ -207,8 +191,8 @@
                             </li>
                         </ul>
                     </li>
-                    
-                     <li class="" id="cc_validator">
+
+                    <li class="" id="cc_validator">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text"> Function: transtatus </span>
@@ -234,7 +218,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                             <li class="go" data-div="cc_transtatus_example">
+                            <li class="go" data-div="cc_transtatus_example">
                                 <a href="#" >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Example
@@ -244,7 +228,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li class="" id="cc_validator">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
@@ -271,7 +255,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                             <li class="go" data-div="cc_auth_transaction">
+                            <li class="go" data-div="cc_auth_transaction">
                                 <a href="#" >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     auth_capture_transaction
@@ -279,7 +263,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                             <li class="go" data-div="cc_check_transaction_status">
+                            <li class="go" data-div="cc_check_transaction_status">
                                 <a href="#" >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     check_transaction_status
@@ -287,7 +271,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                             <li class="go" data-div="cc_refund_transaction">
+                            <li class="go" data-div="cc_refund_transaction">
                                 <a href="#" >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     refund_transaction
@@ -295,7 +279,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                             <li class="go" data-div="cc_refund_transaction">
+                            <li class="go" data-div="cc_refund_transaction">
                                 <a href="#" >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     void_transaction
@@ -303,7 +287,7 @@
 
                                 <b class="arrow"></b>
                             </li>
-                             <li class="go" data-div="cc_download_sdk">
+                            <li class="go" data-div="cc_download_sdk">
                                 <a href="#" >
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Downloads
@@ -321,12 +305,11 @@
                             </span>
                         </a>
                     </li>
-                </ul><!-- /.nav-list -->
+                </ul><!-- /.APD menu -->
 
-                
-                <!--Cashout Cards menu-->
-                <ul class="nav nav-list active" id="cashout-cards-menu">
-                     <li class="go" data-div="cc_introduction">
+                <!-- full-api-menu -->
+                <ul class="nav nav-list active" id="full-api-menu">
+                    <li class="go" data-div="cc_introduction">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text">
@@ -334,8 +317,8 @@
                             </span>
                         </a>
                     </li>
-                    
-                   <li class="" data-div="cc_considerations">
+
+                    <li class="" data-div="cc_considerations">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text"> Considerations </span>
@@ -364,7 +347,7 @@
                         </ul>
                     </li>
 
-                     <li class="go" data-div="cc_howtostart">
+                    <li class="go" data-div="cc_howtostart">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text">
@@ -372,7 +355,7 @@
                             </span>
                         </a>
                     </li>
-                    
+
                     <li class="">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
@@ -391,7 +374,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <li class="" id="cc_sendcard">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
@@ -428,7 +411,7 @@
                             </span>
                         </a>
                     </li>
-                    
+
                     <li class="">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
@@ -457,16 +440,47 @@
                             </li>
                         </ul>
                     </li>
-                    
-                      <li class="go" data-div="cc_testing">
+
+                    <li class="go" data-div="cc_testing">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text"> Testing on Sandbox </span>
                         </a>
                     </li>
-                </ul><!-- /.nav-list -->
+                </ul><!-- /.Full API menu -->
 
-             
+                <!--  rounders-menu  -->
+                <ul class="nav nav-list active" id="rounders-menu">
+                    <li class="go" data-div="cc_introduction">
+                        <a href="#" class="dropdown-toggle">
+                            <i class=""></i>
+                            <span class="menu-text">
+                                Introduction
+                            </span>
+                        </a>
+                    </li>
+                </ul><!-- /.Rounders menu -->
+
+                <!--  cashout-menu  -->
+                <ul class="nav nav-list active" id="cashout-menu">
+                    <li class="go" data-div="cc_introduction">
+                        <a href="#" class="dropdown-toggle">
+                            <i class=""></i>
+                            <span class="menu-text">
+                                Introduction
+                            </span>
+                        </a>
+                    </li>
+                     <li class="go" data-div="cc_introduction">
+                        <a href="#" class="dropdown-toggle">
+                            <i class=""></i>
+                            <span class="menu-text">
+                                Integration
+                            </span>
+                        </a>
+                    </li>
+                </ul><!-- /.Cashout menu -->
+
             </div>
 
             <!-- /section:basics/sidebar -->
@@ -495,7 +509,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <!-- PAGE CONTENT BEGINS -->
-                                
+
                                 <div id="main-content"></div>
 
                                 <!-- PAGE CONTENT ENDS -->
@@ -525,18 +539,11 @@
 
         <!-- basic scripts -->
 
-        <!--[if !IE]> -->
         <script type="text/javascript">
             window.jQuery || document.write("<script src='assets/js/jquery.js'>" + "<" + "/script>");
         </script>
 
-        <!-- <![endif]-->
-
-        <!--[if IE]>
-<script type="text/javascript">
-window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
+        
         <script type="text/javascript">
             if ('ontouchstart' in document.documentElement)
                 document.write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
@@ -545,9 +552,7 @@ window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/
 
         <!-- page specific plugin scripts -->
 
-        <!--[if lte IE 8]>
-          <script src="../assets/js/excanvas.js"></script>
-        <![endif]-->
+       
         <script src="assets/js/jquery-ui.custom.js"></script>
         <script src="assets/js/jquery.ui.touch-punch.js"></script>
         <script src="assets/js/jquery.easypiechart.js"></script>
@@ -804,19 +809,6 @@ window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/
             })
         </script>
 
-        <!-- the following scripts are used in demo only for onpage help and you don't need them -->
-        <link rel="stylesheet" href="assets/css/ace.onpage-help.css" />
-<!--        <link rel="stylesheet" href="docs/assets/js/themes/sunburst.css" />-->
-
-        <script type="text/javascript"> ace.vars['base'] = '..';</script>
-        <script src="assets/js/ace/elements.onpage-help.js"></script>
-        <script src="assets/js/ace/ace.onpage-help.js"></script>
-<!--        <script src="docs/assets/js/rainbow.js"></script>
-        <script src="docs/assets/js/language/generic.js"></script>
-        <script src="docs/assets/js/language/html.js"></script>
-        <script src="docs/assets/js/language/css.js"></script>
-        <script src="docs/assets/js/language/javascript.js"></script>-->
-        
         <!--AstroPay scripts-->
         <script src="js/navigation.js"></script>
         <script src="js/cashout_card_menu.js"></script>

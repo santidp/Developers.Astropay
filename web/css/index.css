@@ -1,74 +1,59 @@
-
-.color-apd-streamline{
-    background-color: #2290e9 !important;
-    border-color: #2290e9 !important;
+.color-apd{
+    color: #D41A1A !important;
+}
+.border-color-apd{
+    border-color: #D41A1A  !important;
+}
+.background-color-apd{
+    background: #D41A1A !important; 
+    color: white;
 }
 
-.color-apd-classic{
-    background-color: #307ecc !important;
-    border-color: #307ecc !important;
+.color-full-api{
+    color: #2290e9 !important;
 }
-
-.color-one-shot{
-    background-color: #08C !important;
-    border-color: #08C !important;
+.border-color-full-api{
+    border-color: #2290e9  !important;
 }
-
-.color-pre-approval{
-    background-color: #0086B3 !important;
-    border-color: #0086B3 !important;
-}
-
-.color-apc{
-    color: #D41A1A  !important;
+.background-color-full-api{
+    background: #2290e9 !important; 
+    color: white;
 }
 
 .color-rounders{
-    background-color: #e8b10d !important;
-    border-color: #e8b10d !important;
+    color: #D8BC41 !important;
+}
+.border-color-rounders{
+    border-color: #D8BC41  !important;
+}
+.background-color-rounders{
+    background: #D8BC41 !important; 
+    color: white;
 }
 
-.color-cashout-cash{
-    background-color: #82af6f !important;
-    border-color: #82af6f !important;
+.color-cashout{
+    color: #00BE67 !important;
 }
-
-.color-cashout-card{
-    color: #0086B3 !important;
+.border-color-cashout{
+    border-color: #00BE67  !important;
+}
+.background-color-cashout{
+    background: #00BE67 !important; 
+    color: white;
 }
 
 .color-astropay{
     color: #D41A1A !important;
 }
-
-
-
 .border-color-apc{
     border-color: #D41A1A  !important;
 }
-
-.border-color-cashout-card{
-    border-color: #0086B3 !important;
-}
-
-
-
 .background-color-astropay{
     background:  #D41A1A !important; 
     border-color: #D41A1A !important; 
     color: white;
 }
 
-.background-color-cashout-card{
-    background: #0086B3 !important; 
-    color: white;
-}
-
-
-.background-color-apc{
-    background: #D41A1A !important; 
-    color: white;
-}
 
 #apd-streamline-menu,
 #apd-classic-menu ,
