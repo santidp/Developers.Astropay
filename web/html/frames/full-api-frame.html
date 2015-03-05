@@ -63,7 +63,7 @@
 
             <div class="well">
                 <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Note</h4>
-                You will find your credentials in the panel: "Integration -> Credentials & Settings". Notice that credentials are different between both environments.
+                You will find your credentials in the panel: "Integration -> Credentials & Settings". Notice that credentials are different between Both environments.
                 <br>
             </div>
             <div class="well">
@@ -73,678 +73,1938 @@
             </div>
 
 
-            <h1 class="header block lighter color-full-api blue">Function: Sale</h1>
-            <p>
-                This function performs a payment.
-            </p>
-            <p>
-                A Sale transaction checks if the card holder has sufficient funds for that purchase and if the
-                transaction has passed the Acquirer's and Bank's risk assessment process, and if approved,
-                the transaction is completed.
-            </p>
-            <p>
-                POST:
-                <br>
-                <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
-                https://astropaycard.com/api_curl/cc/sale
-            </p>
-            <h2 id="cc_request" class=" block lighter"> Request </h2>
-            <h3 class="block lighter"> Mandatory parameters </h3>
-            TODO tabla mandatory, optional y control string.
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th></th>
-                    </tr>
-                </thead>
 
-                <tbody>
-                    <tr>
-                        <td>x_login</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant ID in Astropay platform</td>
-                        <td>AsGsd35Grf</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_trans_key</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant password in Astropay platform </td>
-                        <td>D23weF2f4g</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_amount</td>
-                        <td>Decimal (max. 2 decimal numbers)</td>
-                        <td>Cashout amount</td>
-                        <td>100.95</td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_currency</td>
-                        <td>String (length: 3 chars)</td>
-                        <td>Cashout currency code</td>
-                        <td>EUR</td>
-                        <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_email</td>
-                        <td>String (max. length: 100 chars)</td>
-                        <td>User email address</td>
-                        <td>astropay@astropaycard.com</td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_control</td>
-                        <td>String (length: 40 chars)</td>
-                        <td>Control string calculated by you</td>
-                        <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
-                        <td><span class="badge badge-danger background-color-full-api">3</span></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <p>
-                <span class="badge badge-danger background-color-full-api">1</span>
-                x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
-            </p>
-
-            <p>
-                <span class="badge badge-danger background-color-full-api">2</span>
-                See <a href="#cc_currencies">available currencies</a>
-            </p>
-            <p>
-                <span class="badge badge-danger background-color-full-api">3</span>
-                Control string
-            </p>
-            <ul>
-                <li>
-                    $secret - Merchant's account secret key
-                </li>
-                <li>
-                    $x_amount - Cashout amount
-                </li>
-                <li>
-                    $x_currency - Cashout currency code
-                </li>
-                <li>
-                    $x_email - User email address
-                </li>
-            </ul>    
-
-
+            <!-- save -->
             <div>
-                <div class="alert alert-info">
-                    $control_string = sha1 ( $secret . number_format ( $x_amount, 2 ) . $x_currency . $x_email );
-                </div>
-            </div>
+                <h1 class="header block lighter color-full-api blue">Recurrent payments. Function: Save</h1>
+                <p>
+                    The Save Card function allows the Merchant to securely store the customer's credit card
+                    information for future or recurrent purchases. It checks if the credit card used is valid and creates a
+                    preapproval that allows the Merchant to debit automatically from the user credit card.<br>
+                    The Merchant receives a unique token that could be used when sending a sale transactions.<br>
+                    Also, Merchant can make a sale transaction by sending all credit card information again but whithout CVV.
+                </p>
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                    https://astropaycard.com/api_curl/cc/save
+                </p>
+                <h2 id="cc_request" class=" block lighter"> Request </h2>
+                <h3 class="block lighter"> Mandatory parameters </h3>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-            <h3 class="block lighter"> Optional parameters </h3>
+                    <tbody>
+                        <tr>
+                            <td>x_login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+                        <tr>
+                            <td>x_trans_key</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay</td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+                        <tr>
+                            <td>x_version</td>
+                            <td>String (Format: X.Y)</td>
+                            <td>API version</td>
+                            <td>4.0</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_country</td>
+                            <td>String (max. length: 2 chars)</td>
+                            <td>User’s country. ISO 3166-1 alpha-2 codes</td>
+                            <td>BR</td>
+                            <td></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>x_description</td>
+                            <td>String (max. length: 200 chars)</td>
+                            <td>A description about your service</td>
+                            <td>Sony</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_cpf</td>
+                            <td>Number (max. 30 digits)</td>
+                            <td>User’s personal identification
+                                number:
+                                CPF or CNPJ for Brazil, DNI for
+                                Argentina and ID for other
+                                countries.</td>
+                            <td>123456789</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_name</td>
+                            <td>String</td>
+                            <td>User’s full name.</td>
+                            <td>Ivan Lolivier</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_email</td>
+                            <td>String</td>
+                            <td>User’s email address.</td>
+                            <td>santiago@astropay.com</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_bank</td>
+                            <td>String (max. 3 digits)</td>
+                            <td>Payment method code. See <a href="#cc_pm_codes">payment method codes</a></td>
+                            <td>VI</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>cc_number</td>
+                            <td>Number (16 digits)</td>
+                            <td>User's credit card number</td>
+                            <td>4111111111111111</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>cc_exp_month</td>
+                            <td>Number (2 digits)</td>
+                            <td>Credit card expiration month</td>
+                            <td>02</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>cc_exp_year</td>
+                            <td>Number (4 digits)</td>
+                            <td>Credit card expiration year</td>
+                            <td>2018</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>cc_cvv</td>
+                            <td>Number (max length: 4 digits)</td>
+                            <td>Credit card verification value</td>
+                            <td>425</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>cc_issuer</td>
+                            <td>Number</td>
+                            <td>Credit card issuer bank (Mandatory only for Mexico). See <a href="#cc_issuer_banks">issuer bank codes</a></td>
+                            <td>105</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_device_id</td>
+                            <td>String</td>
+                            <td>Buyer's device Id. See <a href="#cc_x_device_id">Device id</a></td>
+                            <td>54hj4h5jh46hasjd</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>control</td>
+                            <td>String</td>
+                            <td>Control string</td>
+                            <td>JASG44DNNGIJ34IJ34OKOEWJNCV874Y4UY</td>
+                            <td><span class="badge badge-danger background-color-full-api">2</span></td>
+                        </tr>
 
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th>Default</th>
-                        <th></th>
-                    </tr>
-                </thead>
+                    </tbody>
+                </table>
 
-                <tbody>
-                    <tr>
-                        <td>x_window</td>
-                        <td>Integer</td>
-                        <td>The time window in seconds after a transaction is taken as duplicated</td>
-                        <td>60</td>
-                        <td>10</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td> x_reference</td>
-                        <td>String (length: 10 chars)</td>
-                        <td>Merchant's internal cashout reference</td>
-                        <td>cashout_123</td>
-                        <td>-   </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <h2 id="cc_response" class=" block lighter">Response</h2>
-            <div id="response"></div>
-            TODO: tabla y control string.
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Description</th>
-                        <th></th>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>code</td>
-                        <td>Response code</td>
-                        <td>200 if success. If not see <a>errors</a></td>
-                    </tr>
-
-                    <tr>
-                        <td>message</td>
-                        <td>Response message</td>
-                        <td>"success" or <a>error message</a></td>
-                    </tr>
-
-                    <tr>
-                        <td>response</td>
-                        <td>Response of request</td>
-                        <td>enum('SUCCESS','ERROR') </td>
-                    </tr>
-
-                    <tr>
-                        <td>id_cashout</td>
-                        <td>Astropay internal ID</td>
-                        <td>"success" or <a>error message</a></td>
-                    </tr>
-                    <tr>
-                        <td>auth_code</td>
-                        <td>Astropay authentication code</td>
-                        <td>Use for VOID a cashout (not available)</td>
-                    </tr>
-
-                    <tr>
-                        <td>email</td>
-                        <td>User's email</td>
-                        <td>Value sent in request</td>
-                    </tr>
-
-                    <tr>
-                        <td>amount</td>
-                        <td>Cashout amount</td>
-                        <td>Value sent in request</td>
-                    </tr>
-                    <tr>
-                        <td>currency</td>
-                        <td>Cashout currency</td>
-                        <td>Value sent in request</td>
-                    </tr>
-                    <tr>
-                        <td>control</td>
-                        <td>Control signature</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <span class="badge badge-danger background-color-full-api">1</span>
-            Control signature
-            <ul>
-                <li>
-                    $secret - secret key of the account
-                </li>
-                <li>
-                    $id_cashout - cashout identification 
-                </li>
-                <li>
-                    $x_email - user's email
-                </li>
-                <li>
-                    $x_amount - cashout amount
-                </li>
-                <li>
-                    $x_currency - cashout currency
-                </li>
-            </ul>    
-
-            <div class="alert alert-info">
-                $control_signature = sha1($secret.$id_cashout.$x_email.number_format($x_amount,2).$x_currency)
-            </div>
-
-            <div class="well">
-                <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Notes</h4>
+                <p>
+                    <span class="badge badge-danger background-color-full-api">1</span>
+                    x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+                </p>
+                <p>
+                    <span class="badge badge-danger background-color-full-api">2</span>
+                    Control string
+                </p>
                 <ul>
                     <li>
-                        If transaction result is pending (7) it means it need to pass for a review process, and
-                        it may take until 48 hours (working days) to get approved/rejected. If this is
-                        unacceptable for your business, you can ask us to configure your account to
-                        automatically decline any pending transaction, but this may decrease your
-                        conversion rates.
+                        $secretkey – secret key given to the merchant
                     </li>
                     <li>
-                        Finance charge for installments can be charged to customers or deducted from
-                        merchant’s balance, depending on merchant’s preference.
+                        $email– user’s email address (x_email)
+                    </li>
+                    <li>
+                        $number–credit card number (cc_number)
+                    </li>
+                    <li>
+                        $cvv–credit card cvv (cc_cvv)
+                    </li>
+                    <li>
+                        $month – credit card expiration month (cc_exp_month)
+                    </li>
+                    <li>
+                        $year – credit card expiration year (cc_exp_year)
+                    </li>
+                    <li>
+                        $cpf – user’s document (x_cpf)
+                    </li>
+                    <li>
+                        $country – country code (x_country)
                     </li>
                 </ul>
+
+
+                <div>
+                    <div class="alert alert-info">
+                        $message = $email.$number.$month.$cvv.$year.$cpf.$country;<br>
+                        $control = strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*',$secretkey)));
+                    </div>
+                </div>
+
+                <h3 class="block lighter"> Optional parameters </h3>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th>Default</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>x_iduser</td>
+                            <td>Decimal (max. 20 chars)</td>
+                            <td>Unique user id at the merchant side</td>
+                            <td>user 123</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_bdate</td>
+                            <td>String</td>
+                            <td>User’s date of birth (Format: YYYYMMDD)</td>
+                            <td>19850812</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_ip</td>
+                            <td>String</td>
+                            <td>Buyer's IP address</td>
+                            <td>200.11.222.3</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_address</td>
+                            <td>String</td>
+                            <td>User’s address</td>
+                            <td>1225 Bonavita St.</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_zip</td>
+                            <td>String</td>
+                            <td>User’s zip/postal code</td>
+                            <td>11300</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_city</td>
+                            <td>String</td>
+                            <td>User’s city</td>
+                            <td>Sao Paulo</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_state</td>
+                            <td>String</td>
+                            <td>User’s state. Brazilian 2 letter format</td>
+                            <td>MO</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_phone</td>
+                            <td>String</td>
+                            <td>User’s phone number</td>
+                            <td>099123456</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_merchant_id</td>
+                            <td>String</td>
+                            <td>Sub merchant identifier (only
+                                for PSPs). List of sub-
+                                merchants must be provided by
+                                PSP</td>
+                            <td>1</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h2 id="cc_response" class=" block lighter">Response</h2>
+                <div id="response"></div>
+                This function, if successful, returns a json with the following parameters:
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th></th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>status</td>
+                            <td>OK</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>desc</td>
+                            <td>Response description message</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>control</td>
+                            <td>Control string</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>result</td>
+                            <td>Transaction result. See <a href="#cc_transaction_result">possible results</a></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>cc_token</td>
+                            <td>The token associated with the customer card.
+                                This information should be stored for future uses.</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="badge badge-danger background-color-full-api">1</span>
+                Control signature
+                <ul>
+                    <li>
+                        $secretkey – secret key given to the merchant
+                    </li>
+                    <li>
+                        $token – credit card token (cc_token)
+                    </li>
+                </ul>    
+
+                <div class="alert alert-info">
+                    $message = $token; <br>
+                    $control = strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*',$secretkey)));
+                </div>
+
+
+
             </div>
 
 
 
-            <h1 class="header block lighter color-full-api blue">Function: Refund</h1>
-            <p>
-                This function performs a payment.
-            </p>
-            <p>
-                A Refund is the reversal of a credit card transaction, where the funds are taken from the
-                Merchant and given back to the Card Holder. A refund processing fee may apply. The
-                refund to the user in always performed is local currency
-            </p>
-            <p>
-                POST:
-                <br>
-                <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
-                https://astropaycard.com/api_curl/cc/refund
-            </p>
-             <h2 id="cc_request" class=" block lighter"> Request </h2>
-            <h3 class="block lighter"> Mandatory parameters </h3>
-            TODO tabla mandatory, optional y control string.
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>x_login</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant ID in Astropay platform</td>
-                        <td>AsGsd35Grf</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_trans_key</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant password in Astropay platform </td>
-                        <td>D23weF2f4g</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_amount</td>
-                        <td>Decimal (max. 2 decimal numbers)</td>
-                        <td>Cashout amount</td>
-                        <td>100.95</td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_currency</td>
-                        <td>String (length: 3 chars)</td>
-                        <td>Cashout currency code</td>
-                        <td>EUR</td>
-                        <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_email</td>
-                        <td>String (max. length: 100 chars)</td>
-                        <td>User email address</td>
-                        <td>astropay@astropaycard.com</td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_control</td>
-                        <td>String (length: 40 chars)</td>
-                        <td>Control string calculated by you</td>
-                        <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
-                        <td><span class="badge badge-danger background-color-full-api">3</span></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <p>
-                <span class="badge badge-danger background-color-full-api">1</span>
-                x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
-            </p>
-
-            <p>
-                <span class="badge badge-danger background-color-full-api">2</span>
-                See <a href="#cc_currencies">available currencies</a>
-            </p>
-            <p>
-                <span class="badge badge-danger background-color-full-api">3</span>
-                Control string
-            </p>
-            <ul>
-                <li>
-                    $secret - Merchant's account secret key
-                </li>
-                <li>
-                    $x_amount - Cashout amount
-                </li>
-                <li>
-                    $x_currency - Cashout currency code
-                </li>
-                <li>
-                    $x_email - User email address
-                </li>
-            </ul>    
 
 
+
+            <!--Sale-->
             <div>
+                <h1 class="header block lighter color-full-api blue">Function: Sale</h1>
+                <p>
+                    This function performs a one-shot or recurrent payment.
+                </p>
+                Recurrent payments has two options: 
+                <ul>
+                    <li>Send the token obtained in save function.</li>
+                    <li>Send card data.</li>
+                </ul>
+                <p>
+                    A Sale transaction checks if the card holder has sufficient funds for that purchase and if the
+                    transaction has passed the Acquirer's and Bank's risk assessment process, and if approved,
+                    the transaction is completed.
+                </p>
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                    https://astropaycard.com/api_curl/cc/sale
+                </p>
+                <h2 id="cc_request" class=" block lighter"> Request </h2>
+                <h3 class="block lighter"> Mandatory parameters </h3>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>One-Shot / Recurrent</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>x_login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay</td>
+                            <td>Both</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_trans_key</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay</td>
+                            <td>Both</td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+                        <tr>
+                            <td>x_version</td>
+                            <td>String (Format: X.Y)</td>
+                            <td>API version</td>
+                            <td>Both</td>
+                            <td>4.0</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_invoice</td>
+                            <td>String (max. lenght 200 chars)</td>
+                            <td>Unique transaction
+                                identification at the merchant
+                                site.</td>
+                            <td>Both</td>
+                            <td>Invoice1234</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_amount</td>
+                            <td>Decimal (max. 2 decimal numbers)</td>
+                            <td>Transaction amount (in the
+                                currency entered in the field
+                                “x_currency”)</td>
+                            <td>Both</td>
+                            <td>100.95</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_currency</td>
+                            <td>String (length: 3 chars)</td>
+                            <td>Currency code. See <a href="#cc_currencies">available currencies</a></td>
+                            <td>Both</td>
+                            <td>EUR</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_description</td>
+                            <td>String (max. length: 200 chars)</td>
+                            <td>A description of the payment</td>
+                            <td>Both</td>
+                            <td>Product 123</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_device_id</td>
+                            <td>String</td>
+                            <td>Buyer's device Id. See <a href="#cc_x_device_id">Device id</a></td>
+                            <td>Both</td>
+                            <td>54hj4h5jh46hasjd</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_country</td>
+                            <td>String (max. length: 2 chars)</td>
+                            <td>User’s country. in ISO 3166-1 alpha-2 codes</td>
+                            <td>One-Shot / Recurrent without token</td>
+                            <td>BR</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_cpf</td>
+                            <td>Number (max. 30 digits)</td>
+                            <td>User’s personal identification
+                                number:
+                                CPF or CNPJ for Brazil, DNI for
+                                Argentina and ID for other
+                                countries.</td>
+                            <td>One-Shot</td>
+                            <td>123456789</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_name</td>
+                            <td>String</td>
+                            <td>User’s full name.</td>
+                            <td>One-Shot</td>
+                            <td>Ivan Lolivier</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_email</td>
+                            <td>String</td>
+                            <td>User’s email address.</td>
+                            <td>One-Shot</td>
+                            <td>santiago@astropay.com</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_bank</td>
+                            <td>String (max. 3 digits)</td>
+                            <td>Payment method code. See <a href="#cc_pm_codes">payment method codes</a></td>
+                            <td>One-Shot / Recurrent without token (only Mexico)</td>
+                            <td>VI</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cc_number</td>
+                            <td>Number (16 digits)</td>
+                            <td>User's credit card number</td>
+                            <td>One-Shot / Recurrent without token</td>
+                            <td>4111111111111111</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cc_exp_month</td>
+                            <td>Number (2 digits)</td>
+                            <td>Credit card expiration month</td>
+                            <td>One-Shot / Recurrent without token</td>
+                            <td>02</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cc_exp_year</td>
+                            <td>Number (4 digits)</td>
+                            <td>Credit card expiration year</td>
+                            <td>One-Shot / Recurrent without token</td>
+                            <td>2018</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cc_cvv</td>
+                            <td>Number (max length: 4 digits)</td>
+                            <td>Credit card verification value</td>
+                            <td>One-shot</td>
+                            <td>425</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cc_issuer</td>
+                            <td>Number</td>
+                            <td>Credit card issuer bank (Mandatory only for Mexico). See <a href="#cc_issuer_banks">issuer bank codes</a></td>
+                            <td>One-Shot / Recurrent without token</td>
+                            <td>105</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>cc_token</td>
+                            <td>String</td>
+                            <td>Token obtained in Save function</td>
+                            <td>Recurrent</td>
+                            <td>1aj2l3g4gj4fh5d5hh6d605</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>control</td>
+                            <td>String</td>
+                            <td>Control string</td>
+                            <td>Both</td>
+                            <td>JASG44DNNGIJ34IJ34OKOEWJNCV874Y4UY</td>
+                            <td><span class="badge badge-danger background-color-full-api">2</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <p>
+                    <span class="badge badge-danger background-color-full-api">1</span>
+                    x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+                </p>
+                <p>
+                    <span class="badge badge-danger background-color-full-api">2</span>
+                    Control string
+                </p>
+                <ul>
+                    <li>
+                        $secretkey – secret key given to the merchant
+                    </li>
+                    <li>
+                        $invoice– unique transaction ID at merchant (x_invoice)
+                    </li>
+                    <li>
+                        $amount–payment amount (x_amount)
+                    </li>
+                    <li>
+                        $currency–payment currency (x_currency)
+                    </li>
+                    <li>
+                        $email– user’s email address (x_email)
+                    </li>
+                    <li>
+                        $number–credit card number (cc_number)
+                    </li>
+                    <li>
+                        $cvv–credit card cvv (cc_cvv)
+                    </li>
+                    <li>
+                        $month – credit card expiration month (cc_exp_month)
+                    </li>
+                    <li>
+                        $year – credit card expiration year (cc_exp_year)
+                    </li>
+                    <li>
+                        $cpf – user’s document (x_cpf)
+                    </li>
+                    <li>
+                        $country – country code (x_country)
+                    </li>
+                    <li>
+                        $token – credit card token (cc_token)
+                    </li>
+                </ul>
+
+
+                    If some of the above parameter is not sent in the request, they must not be
+                    considered for the control string.
+                <div>
+                    <div class="alert alert-info">
+                        $message = $invoice.$amount.$currency.$email.$number.$month.$cvv.$year.$cpf.$country.$token;<br>
+                        $control = strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*',$secretkey)));
+                    </div>
+                </div>
+
+                <h3 class="block lighter"> Optional parameters </h3>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>One-Shot / Recurrent </th>
+                            <th>Example </th>
+                            <th>Default</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>cc_installments</td>
+                            <td>Number</td>
+                            <td>Number of installments</td>
+                            <td>One-Shot</td>
+                            <td>3</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>x_ip</td>
+                            <td>String</td>
+                            <td>Buyer's IP address</td>
+                            <td>Both</td>
+                            <td>200.11.222.3</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_confirm</td>
+                            <td>String</td>
+                            <td>To be provided if the
+                                confirmation URL is different
+                                from the confirmation URL
+                                registered by the merchant. See <a href="#cc_x_confirm"> confirmation url</a></td>
+                            <td>Both</td>
+                            <td>http://merchant/confirm</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_bdate</td>
+                            <td>String</td>
+                            <td>User’s date of birth (Format: YYYYMMDD)</td>
+                            <td>One-Shot</td>
+                            <td>19850812</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_iduser</td>
+                            <td>Decimal (max. 20 chars)</td>
+                            <td>Unique user id at the merchant side</td>
+                            <td>One-Shot</td>
+                            <td>user 123</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_address</td>
+                            <td>String</td>
+                            <td>User’s address</td>
+                            <td>One-Shot</td>
+                            <td>1225 Bonavita St.</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_zip</td>
+                            <td>String</td>
+                            <td>User’s zip/postal code</td>
+                            <td>One-Shot</td>
+                            <td>11300</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_city</td>
+                            <td>String</td>
+                            <td>User’s city</td>
+                            <td>One-Shot</td>
+                            <td>Sao Paulo</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_state</td>
+                            <td>String</td>
+                            <td>User’s state. Brazilian 2 letter format</td>
+                            <td>One-Shot</td>
+                            <td>MO</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_phone</td>
+                            <td>String</td>
+                            <td>User’s phone number</td>
+                            <td>One-Shot</td>
+                            <td>099123456</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_merchant_id</td>
+                            <td>String</td>
+                            <td>Sub merchant identifier (only
+                                for PSPs). List of sub-
+                                merchants must be provided by
+                                PSP</td>
+                            <td>Both</td>
+                            <td>1</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h2 id="cc_response" class=" block lighter">Response</h2>
+                <div id="response"></div>
+                This function, if successful, returns a json with the following parameters:
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th></th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>status</td>
+                            <td>OK</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>desc</td>
+                            <td>Response description message</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>control</td>
+                            <td>Control string</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>result</td>
+                            <td>Transaction result. See <a href="#cc_transaction_result">possible results</a></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_invoice</td>
+                            <td>Unique transaction ID number at the merchant</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>x_document</td>
+                            <td>Unique transaction ID number at AstroPay. This information should be stored for future use.</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_currency</td>
+                            <td>Currency code</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_amount_paid</td>
+                            <td>The amount finally charged to the user, in local currency. It includes finance charges (if applies).</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cc_descriptor</td>
+                            <td>The transaction descriptor that will appear in the user’s statement</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="badge badge-danger background-color-full-api">1</span>
+                Control signature
+                <ul>
+                    <li>
+                        $secretkey – secret key given to the merchant
+                    </li>
+                    <li>
+                        $result – transaction result code
+                    </li>
+                    <li>
+                        $amount – payment amount (x_amount)
+                    </li>
+                    <li>
+                        $currency – payment currency (x_currency)
+                    </li>
+                    <li>
+                        $invoice – unique transaction ID at merchant (x_invoice)
+                    </li>
+                    <li>
+                        $document – unique transaction ID at AstroPay (x_document)
+                    </li>
+                </ul>    
+
                 <div class="alert alert-info">
-                    $control_string = sha1 ( $secret . number_format ( $x_amount, 2 ) . $x_currency . $x_email );
+                    $message = $result . $currency . $amount . $invoice . $document;<br>
+                    $control = strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*',$secretkey)));
+                </div>
+                
+                
+                <div class="well">
+                    <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Note</h4>
+                    If transaction result is pending (7) it means it need to pass for a review process, and
+                    it may take until 48 hours (working days) to get approved/rejected. If this is
+                    unacceptable for your business, you can ask us to configure your account to
+                    automatically decline any pending transaction, but this may decrease your
+                    conversion rates.<br>
+                    Finance charge for installments can be charged to customers or deducted from
+                    merchant’s balance, depending on merchant’s preference.
+                    <br>
                 </div>
             </div>
 
-            <h3 class="block lighter"> Optional parameters </h3>
-
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th>Default</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>x_window</td>
-                        <td>Integer</td>
-                        <td>The time window in seconds after a transaction is taken as duplicated</td>
-                        <td>60</td>
-                        <td>10</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td> x_reference</td>
-                        <td>String (length: 10 chars)</td>
-                        <td>Merchant's internal cashout reference</td>
-                        <td>cashout_123</td>
-                        <td>-   </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
 
 
-            <h2 id="cc_response" class=" block lighter">Response</h2>
-            <div id="response"></div>
-            TODO: tabla y control string.
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Description</th>
-                        <th></th>
-                </thead>
 
-                <tbody>
-                    <tr>
-                        <td>code</td>
-                        <td>Response code</td>
-                        <td>200 if success. If not see <a>errors</a></td>
-                    </tr>
+            <!-- refunds -->
+            <div> 
+                <h1 class="header block lighter color-full-api blue">Function: Refund</h1>
+                <p>
+                    A Refund is the reversal of a credit card transaction, where the funds are taken from the
+                    Merchant and given back to the Card Holder. A refund processing fee may apply. The
+                    refund to the user in always performed is local currency
+                </p>
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                    https://astropaycard.com/api_curl/cc/refund
+                </p>
+                <h2 id="cc_request" class=" block lighter"> Request </h2>
+                <h3 class="block lighter"> Mandatory parameters </h3>
+                TODO tabla mandatory, optional y control string.
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-                    <tr>
-                        <td>message</td>
-                        <td>Response message</td>
-                        <td>"success" or <a>error message</a></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>x_login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay platform</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
 
-                    <tr>
-                        <td>response</td>
-                        <td>Response of request</td>
-                        <td>enum('SUCCESS','ERROR') </td>
-                    </tr>
+                        <tr>
+                            <td>x_trans_key</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay platform </td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
 
-                    <tr>
-                        <td>id_cashout</td>
-                        <td>Astropay internal ID</td>
-                        <td>"success" or <a>error message</a></td>
-                    </tr>
-                    <tr>
-                        <td>auth_code</td>
-                        <td>Astropay authentication code</td>
-                        <td>Use for VOID a cashout (not available)</td>
-                    </tr>
+                        <tr>
+                            <td>x_amount</td>
+                            <td>Decimal (max. 2 decimal numbers)</td>
+                            <td>Cashout amount</td>
+                            <td>100.95</td>
+                            <td></td>
+                        </tr>
 
-                    <tr>
-                        <td>email</td>
-                        <td>User's email</td>
-                        <td>Value sent in request</td>
-                    </tr>
+                        <tr>
+                            <td>x_currency</td>
+                            <td>String (length: 3 chars)</td>
+                            <td>Cashout currency code</td>
+                            <td>EUR</td>
+                            <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
+                        </tr>
 
-                    <tr>
-                        <td>amount</td>
-                        <td>Cashout amount</td>
-                        <td>Value sent in request</td>
-                    </tr>
-                    <tr>
-                        <td>currency</td>
-                        <td>Cashout currency</td>
-                        <td>Value sent in request</td>
-                    </tr>
-                    <tr>
-                        <td>control</td>
-                        <td>Control signature</td>
-                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <span class="badge badge-danger background-color-full-api">1</span>
-            Control signature
-            <ul>
-                <li>
-                    $secret - secret key of the account
-                </li>
-                <li>
-                    $id_cashout - cashout identification 
-                </li>
-                <li>
-                    $x_email - user's email
-                </li>
-                <li>
-                    $x_amount - cashout amount
-                </li>
-                <li>
-                    $x_currency - cashout currency
-                </li>
-            </ul>    
+                        <tr>
+                            <td>x_email</td>
+                            <td>String (max. length: 100 chars)</td>
+                            <td>User email address</td>
+                            <td>astropay@astropaycard.com</td>
+                            <td></td>
+                        </tr>
 
-            <div class="alert alert-info">
-                $control_signature = sha1($secret.$id_cashout.$x_email.number_format($x_amount,2).$x_currency)
+                        <tr>
+                            <td>x_control</td>
+                            <td>String (length: 40 chars)</td>
+                            <td>Control string calculated by you</td>
+                            <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
+                            <td><span class="badge badge-danger background-color-full-api">3</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <p>
+                    <span class="badge badge-danger background-color-full-api">1</span>
+                    x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+                </p>
+
+                <p>
+                    <span class="badge badge-danger background-color-full-api">2</span>
+                    See <a href="#cc_currencies">available currencies</a>
+                </p>
+                <p>
+                    <span class="badge badge-danger background-color-full-api">3</span>
+                    Control string
+                </p>
+                <ul>
+                    <li>
+                        $secret - Merchant's account secret key
+                    </li>
+                    <li>
+                        $x_amount - Cashout amount
+                    </li>
+                    <li>
+                        $x_currency - Cashout currency code
+                    </li>
+                    <li>
+                        $x_email - User email address
+                    </li>
+                </ul>    
+
+
+                <div>
+                    <div class="alert alert-info">
+                        $control_string = sha1 ( $secret . number_format ( $x_amount, 2 ) . $x_currency . $x_email );
+                    </div>
+                </div>
+
+                <h3 class="block lighter"> Optional parameters </h3>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th>Default</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>x_window</td>
+                            <td>Integer</td>
+                            <td>The time window in seconds after a transaction is taken as duplicated</td>
+                            <td>60</td>
+                            <td>10</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td> x_reference</td>
+                            <td>String (length: 10 chars)</td>
+                            <td>Merchant's internal cashout reference</td>
+                            <td>cashout_123</td>
+                            <td>-   </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 id="cc_response" class=" block lighter">Response</h2>
+                <div id="response"></div>
+                TODO: tabla y control string.
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                            <th></th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>code</td>
+                            <td>Response code</td>
+                            <td>200 if success. If not see <a>errors</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>message</td>
+                            <td>Response message</td>
+                            <td>"success" or <a>error message</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>response</td>
+                            <td>Response of request</td>
+                            <td>enum('SUCCESS','ERROR') </td>
+                        </tr>
+
+                        <tr>
+                            <td>id_cashout</td>
+                            <td>Astropay internal ID</td>
+                            <td>"success" or <a>error message</a></td>
+                        </tr>
+                        <tr>
+                            <td>auth_code</td>
+                            <td>Astropay authentication code</td>
+                            <td>Use for VOID a cashout (not available)</td>
+                        </tr>
+
+                        <tr>
+                            <td>email</td>
+                            <td>User's email</td>
+                            <td>Value sent in request</td>
+                        </tr>
+
+                        <tr>
+                            <td>amount</td>
+                            <td>Cashout amount</td>
+                            <td>Value sent in request</td>
+                        </tr>
+                        <tr>
+                            <td>currency</td>
+                            <td>Cashout currency</td>
+                            <td>Value sent in request</td>
+                        </tr>
+                        <tr>
+                            <td>control</td>
+                            <td>Control signature</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <span class="badge badge-danger background-color-full-api">1</span>
+                Control signature
+                <ul>
+                    <li>
+                        $secret - secret key of the account
+                    </li>
+                    <li>
+                        $id_cashout - cashout identification 
+                    </li>
+                    <li>
+                        $x_email - user's email
+                    </li>
+                    <li>
+                        $x_amount - cashout amount
+                    </li>
+                    <li>
+                        $x_currency - cashout currency
+                    </li>
+                </ul>    
+
+                <div class="alert alert-info">
+                    $control_signature = sha1($secret.$id_cashout.$x_email.number_format($x_amount,2).$x_currency)
+                </div>
             </div>
-
-            
-
+            <!--refounds-->
 
 
 
+            <!-- Query functions -->
+            <div> 
+                <h1 class="header block lighter color-full-api blue">Query Functions</h1>
+
+
+                <!-- Payment status -->
+                <div>
+                    <h2 id="cc_request" class=" block lighter"> Payment status </h2>
+                    <p>
+                        The status of a transaction can be verified
+                    </p>
+                    <p>
+                        POST:
+                        <br>
+                        <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                        https://astropaycard.com/api_curl/cc/refund
+                    </p>
+                    <h3 id="cc_request" class=" block lighter color-full-api"> Request </h3>
+                    <h4 class="block lighter"> Mandatory parameters </h4>
+                    TODO tabla mandatory, optional y control string.
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Format</th>
+                                <th>Description</th>
+                                <th>Example </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>x_login</td>
+                                <td>String (length: 32 chars)</td>
+                                <td>Your merchant ID in Astropay platform</td>
+                                <td>AsGsd35Grf</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_trans_key</td>
+                                <td>String (length: 32 chars)</td>
+                                <td>Your merchant password in Astropay platform </td>
+                                <td>D23weF2f4g</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_amount</td>
+                                <td>Decimal (max. 2 decimal numbers)</td>
+                                <td>Cashout amount</td>
+                                <td>100.95</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_currency</td>
+                                <td>String (length: 3 chars)</td>
+                                <td>Cashout currency code</td>
+                                <td>EUR</td>
+                                <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_email</td>
+                                <td>String (max. length: 100 chars)</td>
+                                <td>User email address</td>
+                                <td>astropay@astropaycard.com</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_control</td>
+                                <td>String (length: 40 chars)</td>
+                                <td>Control string calculated by you</td>
+                                <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
+                                <td><span class="badge badge-danger background-color-full-api">3</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <h3 id="cc_response" class=" block lighter">Response</h3>
+                    <div id="response"></div>
+                    TODO: tabla y control string.
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Description</th>
+                                <th></th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>code</td>
+                                <td>Response code</td>
+                                <td>200 if success. If not see <a>errors</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>message</td>
+                                <td>Response message</td>
+                                <td>"success" or <a>error message</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>response</td>
+                                <td>Response of request</td>
+                                <td>enum('SUCCESS','ERROR') </td>
+                            </tr>
+
+                            <tr>
+                                <td>id_cashout</td>
+                                <td>Astropay internal ID</td>
+                                <td>"success" or <a>error message</a></td>
+                            </tr>
+                            <tr>
+                                <td>auth_code</td>
+                                <td>Astropay authentication code</td>
+                                <td>Use for VOID a cashout (not available)</td>
+                            </tr>
+
+                            <tr>
+                                <td>email</td>
+                                <td>User's email</td>
+                                <td>Value sent in request</td>
+                            </tr>
+
+                            <tr>
+                                <td>amount</td>
+                                <td>Cashout amount</td>
+                                <td>Value sent in request</td>
+                            </tr>
+                            <tr>
+                                <td>currency</td>
+                                <td>Cashout currency</td>
+                                <td>Value sent in request</td>
+                            </tr>
+                            <tr>
+                                <td>control</td>
+                                <td>Control signature</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Payment status -->
+
+                <!-- Refund status -->
+                <div>
+                    <h2 id="cc_request" class=" block lighter color-full-api"> Refund status </h2>
+                    <p>
+                        The status of a transaction can be verified
+                    </p>
+                    <p>
+                        POST:
+                        <br>
+                        <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                        https://astropaycard.com/api_curl/cc/refund
+                    </p>
+                    <h3 id="cc_request" class=" block lighter"> Request </h3>
+                    <h4 class="block lighter"> Mandatory parameters </h4>
+                    TODO tabla mandatory, optional y control string.
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Format</th>
+                                <th>Description</th>
+                                <th>Example </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>x_login</td>
+                                <td>String (length: 32 chars)</td>
+                                <td>Your merchant ID in Astropay platform</td>
+                                <td>AsGsd35Grf</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_trans_key</td>
+                                <td>String (length: 32 chars)</td>
+                                <td>Your merchant password in Astropay platform </td>
+                                <td>D23weF2f4g</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_amount</td>
+                                <td>Decimal (max. 2 decimal numbers)</td>
+                                <td>Cashout amount</td>
+                                <td>100.95</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_currency</td>
+                                <td>String (length: 3 chars)</td>
+                                <td>Cashout currency code</td>
+                                <td>EUR</td>
+                                <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_email</td>
+                                <td>String (max. length: 100 chars)</td>
+                                <td>User email address</td>
+                                <td>astropay@astropaycard.com</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_control</td>
+                                <td>String (length: 40 chars)</td>
+                                <td>Control string calculated by you</td>
+                                <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
+                                <td><span class="badge badge-danger background-color-full-api">3</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <h3 id="cc_response" class=" block lighter">Response</h3>
+                    <div id="response"></div>
+                    TODO: tabla y control string.
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Description</th>
+                                <th></th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>code</td>
+                                <td>Response code</td>
+                                <td>200 if success. If not see <a>errors</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>message</td>
+                                <td>Response message</td>
+                                <td>"success" or <a>error message</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>response</td>
+                                <td>Response of request</td>
+                                <td>enum('SUCCESS','ERROR') </td>
+                            </tr>
+
+                            <tr>
+                                <td>id_cashout</td>
+                                <td>Astropay internal ID</td>
+                                <td>"success" or <a>error message</a></td>
+                            </tr>
+                            <tr>
+                                <td>auth_code</td>
+                                <td>Astropay authentication code</td>
+                                <td>Use for VOID a cashout (not available)</td>
+                            </tr>
+
+                            <tr>
+                                <td>email</td>
+                                <td>User's email</td>
+                                <td>Value sent in request</td>
+                            </tr>
+
+                            <tr>
+                                <td>amount</td>
+                                <td>Cashout amount</td>
+                                <td>Value sent in request</td>
+                            </tr>
+                            <tr>
+                                <td>currency</td>
+                                <td>Cashout currency</td>
+                                <td>Value sent in request</td>
+                            </tr>
+                            <tr>
+                                <td>control</td>
+                                <td>Control signature</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Refund status -->
+
+
+                <!-- Refund status -->
+                <div>
+                    <h2 id="cc_request" class=" block lighter color-full-api"> Installments (only one-shot) </h2>
+                    <p>
+                        The status of a transaction can be verified
+                    </p>
+                    <p>
+                        POST:
+                        <br>
+                        <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                        https://astropaycard.com/api_curl/cc/refund
+                    </p>
+                    <h3 id="cc_request" class=" block lighter"> Request </h3>
+                    <h4 class="block lighter"> Mandatory parameters </h4>
+                    TODO tabla mandatory, optional y control string.
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Format</th>
+                                <th>Description</th>
+                                <th>Example </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>x_login</td>
+                                <td>String (length: 32 chars)</td>
+                                <td>Your merchant ID in Astropay platform</td>
+                                <td>AsGsd35Grf</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_trans_key</td>
+                                <td>String (length: 32 chars)</td>
+                                <td>Your merchant password in Astropay platform </td>
+                                <td>D23weF2f4g</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_amount</td>
+                                <td>Decimal (max. 2 decimal numbers)</td>
+                                <td>Cashout amount</td>
+                                <td>100.95</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_currency</td>
+                                <td>String (length: 3 chars)</td>
+                                <td>Cashout currency code</td>
+                                <td>EUR</td>
+                                <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_email</td>
+                                <td>String (max. length: 100 chars)</td>
+                                <td>User email address</td>
+                                <td>astropay@astropaycard.com</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>x_control</td>
+                                <td>String (length: 40 chars)</td>
+                                <td>Control string calculated by you</td>
+                                <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
+                                <td><span class="badge badge-danger background-color-full-api">3</span></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <h3 id="cc_response" class=" block lighter">Response</h3>
+                    <div id="response"></div>
+                    TODO: tabla y control string.
+                    <table id="simple-table" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Description</th>
+                                <th></th>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>code</td>
+                                <td>Response code</td>
+                                <td>200 if success. If not see <a>errors</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>message</td>
+                                <td>Response message</td>
+                                <td>"success" or <a>error message</a></td>
+                            </tr>
+
+                            <tr>
+                                <td>response</td>
+                                <td>Response of request</td>
+                                <td>enum('SUCCESS','ERROR') </td>
+                            </tr>
+
+                            <tr>
+                                <td>id_cashout</td>
+                                <td>Astropay internal ID</td>
+                                <td>"success" or <a>error message</a></td>
+                            </tr>
+                            <tr>
+                                <td>auth_code</td>
+                                <td>Astropay authentication code</td>
+                                <td>Use for VOID a cashout (not available)</td>
+                            </tr>
+
+                            <tr>
+                                <td>email</td>
+                                <td>User's email</td>
+                                <td>Value sent in request</td>
+                            </tr>
+
+                            <tr>
+                                <td>amount</td>
+                                <td>Cashout amount</td>
+                                <td>Value sent in request</td>
+                            </tr>
+                            <tr>
+                                <td>currency</td>
+                                <td>Cashout currency</td>
+                                <td>Value sent in request</td>
+                            </tr>
+                            <tr>
+                                <td>control</td>
+                                <td>Control signature</td>
+                                <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Refund status -->
+
+            </div>
+            <!-- Query functions -->
+
+
+            <!-- notifications -->
+            <div> 
+                <h1 class="header block lighter color-full-api blue">Asynchronous notifications</h1>
+
+                <h2 id="cc_request" class=" block lighter color-full-api"> Transaction notification </h2>
+                <p>
+                    The transaction status is usually final (Paid or Cancelled), but, some risky transactions need
+                    to pass though a fraud review process before a final status is decided. For those pending
+                    (7) transactions, the payment confirmation is sent asynchronously to the Merchant
+                    confirmation URL (x_confirm) by POST protocol, sending the following parameters:
+                </p>
+
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                    https://astropaycard.com/api_curl/cc/refund
+                </p>
+                TODO tabla mandatory, optional y control string.
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>x_login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay platform</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_trans_key</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay platform </td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_amount</td>
+                            <td>Decimal (max. 2 decimal numbers)</td>
+                            <td>Cashout amount</td>
+                            <td>100.95</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_currency</td>
+                            <td>String (length: 3 chars)</td>
+                            <td>Cashout currency code</td>
+                            <td>EUR</td>
+                            <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_email</td>
+                            <td>String (max. length: 100 chars)</td>
+                            <td>User email address</td>
+                            <td>astropay@astropaycard.com</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_control</td>
+                            <td>String (length: 40 chars)</td>
+                            <td>Control string calculated by you</td>
+                            <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
+                            <td><span class="badge badge-danger background-color-full-api">3</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+                <h2 id="cc_request" class=" block lighter color-full-api"> Refund notification </h2>
+                <p>
+                    The transaction status is usually final (Paid or Cancelled), but, some risky transactions need
+                    to pass though a fraud review process before a final status is decided. For those pending
+                    (7) transactions, the payment confirmation is sent asynchronously to the Merchant
+                    confirmation URL (x_confirm) by POST protocol, sending the following parameters:
+                </p>
+
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                    https://astropaycard.com/api_curl/cc/refund
+                </p>
+                TODO tabla mandatory, optional y control string.
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>x_login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay platform</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_trans_key</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay platform </td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_amount</td>
+                            <td>Decimal (max. 2 decimal numbers)</td>
+                            <td>Cashout amount</td>
+                            <td>100.95</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_currency</td>
+                            <td>String (length: 3 chars)</td>
+                            <td>Cashout currency code</td>
+                            <td>EUR</td>
+                            <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_email</td>
+                            <td>String (max. length: 100 chars)</td>
+                            <td>User email address</td>
+                            <td>astropay@astropaycard.com</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_control</td>
+                            <td>String (length: 40 chars)</td>
+                            <td>Control string calculated by you</td>
+                            <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
+                            <td><span class="badge badge-danger background-color-full-api">3</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <h2 id="cc_request" class=" block lighter color-full-api"> Chargeback notification </h2>
+                <p>
+                    The transaction status is usually final (Paid or Cancelled), but, some risky transactions need
+                    to pass though a fraud review process before a final status is decided. For those pending
+                    (7) transactions, the payment confirmation is sent asynchronously to the Merchant
+                    confirmation URL (x_confirm) by POST protocol, sending the following parameters:
+                </p>
+
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-full-api"></i>
+                    https://astropaycard.com/api_curl/cc/refund
+                </p>
+                TODO tabla mandatory, optional y control string.
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>x_login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay platform</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_trans_key</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay platform </td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_amount</td>
+                            <td>Decimal (max. 2 decimal numbers)</td>
+                            <td>Cashout amount</td>
+                            <td>100.95</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_currency</td>
+                            <td>String (length: 3 chars)</td>
+                            <td>Cashout currency code</td>
+                            <td>EUR</td>
+                            <td><span class="badge badge-danger background-color-full-api">2</span></i></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_email</td>
+                            <td>String (max. length: 100 chars)</td>
+                            <td>User email address</td>
+                            <td>astropay@astropaycard.com</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>x_control</td>
+                            <td>String (length: 40 chars)</td>
+                            <td>Control string calculated by you</td>
+                            <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
+                            <td><span class="badge badge-danger background-color-full-api">3</span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <!--notifications-->
 
 
 
 
 
 
+            <!-- Errors -->
+            <div>
+                <h1 class="header block lighter color-full-api blue">Errors</h1>
+
+                <h2 id="cc_references">References</h2>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Code range</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>Syntax validation in parameter/s</td>
+                            <td>3xx</td>
+                        </tr>
+                        <tr>
+                            <td>Merchant identification validation </td>
+                            <td>4xx</td>
+                        </tr>
+                        <tr>
+                            <td>Business logic validation</td>
+                            <td>5xx</td>
+                        </tr>
+                        <tr>
+                            <td>Semantic validation in parameter/s</td>
+                            <td>6xx</td>
+                        </tr>
+                        <tr>
+                            <td>Transactional error</td>
+                            <td>7xx</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 id="cc_codes" class=" block lighter">Codes</h2>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Syntax validation in parameter/s</th>
+                            <th>3xx</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>300</td>
+                            <td>Invalid + [param name]</td>
+                        </tr>
+                        <tr>
+                            <td>302</td>
+                            <td>Invalid control string</td>
+                        </tr>
+                        <tr>
+                            <td>401</td>
+                            <td>Invalid merchant credentials or inactive account </td>
+                        </tr>
+                        <tr>
+                            <td>402</td>
+                            <td>Unregistered IP address </td>
+                        </tr>
+                        <tr>
+                            <td>403</td>
+                            <td>Merchant has no authorization to use this API</td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td>Insufficient founds</td>
+                        </tr>
+                        <tr>
+                            <td>508</td>
+                            <td>Limit exceeded</td>
+                        </tr>
+                        <tr>
+                            <td>512</td>
+                            <td>Duplicated cashout</td>
+                        </tr>
+                        <tr>
+                            <td>513</td>
+                            <td>Unknown currency</td>
+                        </tr>
+                        <tr>
+                            <td>700</td>
+                            <td>Merchant is not properly configured</td>
+                        </tr>
+                        <tr>
+                            <td>700</td>
+                            <td>Unable to load merchant information</td>
+                        </tr>
+                        <tr>
+                            <td>700</td>
+                            <td>Could not create authorization code</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Errors -->
 
 
 
+            <!-- Testing -->
+            <div>
+                <h1 class="header block lighter color-full-api blue">Testing</h1>
 
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Code range</th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        <tr>
+                            <td>Syntax validation in parameter/s</td>
+                            <td>3xx</td>
+                        </tr>
+                        <tr>
+                            <td>Merchant identification validation </td>
+                            <td>4xx</td>
+                        </tr>
+                        <tr>
+                            <td>Business logic validation</td>
+                            <td>5xx</td>
+                        </tr>
+                        <tr>
+                            <td>Semantic validation in parameter/s</td>
+                            <td>6xx</td>
+                        </tr>
+                        <tr>
+                            <td>Transactional error</td>
+                            <td>7xx</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-
-
-            <h1 class="header block lighter color-full-api blue">Errors</h1>
-
-            <h2 id="cc_references">References</h2>
-
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th>Code range</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>Syntax validation in parameter/s</td>
-                        <td>3xx</td>
-                    </tr>
-                    <tr>
-                        <td>Merchant identification validation </td>
-                        <td>4xx</td>
-                    </tr>
-                    <tr>
-                        <td>Business logic validation</td>
-                        <td>5xx</td>
-                    </tr>
-                    <tr>
-                        <td>Semantic validation in parameter/s</td>
-                        <td>6xx</td>
-                    </tr>
-                    <tr>
-                        <td>Transactional error</td>
-                        <td>7xx</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2 id="cc_codes" class=" block lighter">Codes</h2>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Syntax validation in parameter/s</th>
-                        <th>3xx</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>300</td>
-                        <td>Invalid + [param name]</td>
-                    </tr>
-                    <tr>
-                        <td>302</td>
-                        <td>Invalid control string</td>
-                    </tr>
-                    <tr>
-                        <td>401</td>
-                        <td>Invalid merchant credentials or inactive account </td>
-                    </tr>
-                    <tr>
-                        <td>402</td>
-                        <td>Unregistered IP address </td>
-                    </tr>
-                    <tr>
-                        <td>403</td>
-                        <td>Merchant has no authorization to use this API</td>
-                    </tr>
-                    <tr>
-                        <td>500</td>
-                        <td>Insufficient founds</td>
-                    </tr>
-                    <tr>
-                        <td>508</td>
-                        <td>Limit exceeded</td>
-                    </tr>
-                    <tr>
-                        <td>512</td>
-                        <td>Duplicated cashout</td>
-                    </tr>
-                    <tr>
-                        <td>513</td>
-                        <td>Unknown currency</td>
-                    </tr>
-                    <tr>
-                        <td>700</td>
-                        <td>Merchant is not properly configured</td>
-                    </tr>
-                    <tr>
-                        <td>700</td>
-                        <td>Unable to load merchant information</td>
-                    </tr>
-                    <tr>
-                        <td>700</td>
-                        <td>Could not create authorization code</td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-
-
-            <h1 id="cc_testing" class="header block lighter color-full-api blue">Testing on Sandbox</h1>
-            <p>
-                For testing error responses, send in parameter x_email the following values to function Send Card:
-            </p>
-
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Code (response) </th>
-                        <th>Description (response)</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>cashout_302@mail.com</td>
-                        <td>302</td>
-                        <td>Invalid control string</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_500@mail.com</td>
-                        <td>500</td>
-                        <td>Insufficient founds</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_300@mail.com</td>
-                        <td>300</td>
-                        <td>Invalid amount</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_508@mail.com</td>
-                        <td>508</td>
-                        <td>Limit exceeded</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_512@mail.com</td>
-                        <td>512</td>
-                        <td>Duplicated cashout</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_513@mail.com</td>
-                        <td>513</td>
-                        <td>Unknown currency</td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
+            <!-- Testing -->
 
         </div>
-
     </body>
 </html>
