@@ -2,19 +2,18 @@
 
 <html>
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div class="col-sm-12">
             <div class="page-header">
-                <h1 class="color-cashout-card">
+                <h1 class="color-cashout">
                     Cashouts
                 </h1>
-            </div><!-- /.page-header -->
+            </div>
 
-            <h1 id="cc_introduction" class="header block lighter color-cashout-card blue">Introduction</h1>
+            <h1 id="cc_introduction" class="header block lighter color-cashout blue">Introduction</h1>
             <p>
                 This api allows you to deposit money in the bank account of a customer.
                 The deposit will always be in local currency.
@@ -31,507 +30,567 @@
             </p>
 
 
-
             <!-- Considerations-->
             <div id="considerations-container">
 
             </div>
 
-            <h1 class="header block lighter color-cashout-card blue">Function: sendCard</h1>
-            <p>
-                This function is used to generate a Cashout Card.
-            </p>
-            <p>
-                POST:
-                <br>
-                <i class="ace-icon fa fa-globe bigger-125 color-cashout-card"></i>
-                <a href="#cc_urls">URL base</a> + /cashOut/sendCard
-            </p>
-            <h2 id="cc_request" class=" block lighter"> Request </h2>
-            <h3 class="block lighter"> Mandatory parameters </h3>
-
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>x_login</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant ID in Astropay platform</td>
-                        <td>AsGsd35Grf</td>
-                        <td><span class="badge badge-danger background-color-cashout-card">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_trans_key</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant password in Astropay platform </td>
-                        <td>D23weF2f4g</td>
-                        <td><span class="badge badge-danger background-color-cashout-card">1</span></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_amount</td>
-                        <td>Decimal (max. 2 decimal numbers)</td>
-                        <td>Cashout amount</td>
-                        <td>100.95</td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_currency</td>
-                        <td>String (length: 3 chars)</td>
-                        <td>Cashout currency code</td>
-                        <td>EUR</td>
-                        <td><span class="badge badge-danger background-color-cashout-card">2</span></i></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_email</td>
-                        <td>String (max. length: 100 chars)</td>
-                        <td>User email address</td>
-                        <td>astropay@astropaycard.com</td>
-                        <td></td>
-                    </tr>
-
-                    <tr>
-                        <td>x_control</td>
-                        <td>String (length: 40 chars)</td>
-                        <td>Control string calculated by you</td>
-                        <td>4s5d4r42R5gJU23F45HQ1ad45Qdg3f5rTqF63g45</td>
-                        <td><span class="badge badge-danger background-color-cashout-card">3</span></td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <p>
-                <span class="badge badge-danger background-color-cashout-card">1</span>
-                x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
-            </p>
-
-            <p>
-                <span class="badge badge-danger background-color-cashout-card">2</span>
-                See <a href="#cc_currencies">available currencies</a>
-            </p>
-            <p>
-                <span class="badge badge-danger background-color-cashout-card">3</span>
-                Control string
-            </p>
-            <ul>
-                <li>
-                    $secret - Merchant's account secret key
-                </li>
-                <li>
-                    $x_amount - Cashout amount
-                </li>
-                <li>
-                    $x_currency - Cashout currency code
-                </li>
-                <li>
-                    $x_email - User email address
-                </li>
-            </ul>    
 
 
+
+            <!-- request cashout-->
             <div>
-                <div class="alert alert-info">
-                    $control_string = sha1 ( $secret . number_format ( $x_amount, 2 ) . $x_currency . $x_email );
-                </div>
-            </div>
+                <h1 class="header block lighter color-cashout blue">Function: request_cashout</h1>
+                <p>
+                    This function request for a cashout.
+                </p>
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-cashout"></i>
+                    https://astropaycard.com/api_curl/cashout_api/
+                </p>
+                <h2 id="cc_request" class=" block lighter"> Request </h2>
+                <h3 class="block lighter"> Mandatory parameters </h3>
 
-            <h3 class="block lighter"> Optional parameters </h3>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th>Default</th>
-                        <th></th>
-                    </tr>
-                </thead>
+                    <tbody>
+                        <tr>
+                            <td>login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay platform</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-cashout">1</span></td>
+                        </tr>
 
-                <tbody>
-                    <tr>
-                        <td>x_window</td>
-                        <td>Integer</td>
-                        <td>The time window in seconds after a transaction is taken as duplicated</td>
-                        <td>60</td>
-                        <td>10</td>
-                        <td><span class="badge badge-danger background-color-cashout-card">1</span></td>
-                    </tr>
+                        <tr>
+                            <td>pass</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay platform </td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-cashout">1</span></td>
+                        </tr>
 
-                    <tr>
-                        <td> x_reference</td>
-                        <td>String (length: 10 chars)</td>
-                        <td>Merchant's internal cashout reference</td>
-                        <td>cashout_123</td>
-                        <td>-   </td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+                        <tr>
+                            <td>external_id</td>
+                            <td>String (max. 100 chars)</td>
+                            <td>Cashout identification (at the merchant site)</td>
+                            <td>cashout1234</td>
+                            <td></td>
+                        </tr>
 
-            <p>
-                <span class="badge badge-danger background-color-cashout-card">1</span>
-                Transactions sent with same amount and same card information, within a time window of 10 seconds will be taken as duplicated.
-                Batch transactions not recommended, if needed set x_window = 0.
-            </p>
+                        <tr>
+                            <td>cpf</td>
+                            <td>String (max. 100 chars)</td>
+                            <td>User’s personal identification
+                                number:
+                                CPF for Brazil, DNI for Argentina
+                                and ID for other countries.
+                                If Brazil must have 11 chars.</td>
+                            <td>123456789</td>
+                            <td></td>
+                        </tr>
 
-            <h2 id="cc_response" class=" block lighter">Response</h2>
-            <div id="response"></div>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Description</th>
-                        <th></th>
-                </thead>
+                        <tr>
+                            <td>country</td>
+                            <td>String (2 chars)</td>
+                            <td>The user’s country.
+                                ISO 3166-1 alpha-2 code</td>
+                            <td>BR</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>bank</td>
+                            <td>String (max. 45 chars)</td>
+                            <td>User's bank name</td>
+                            <td>Banco do Brasil</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>bank_branch</td>
+                            <td>String (max. 45 chars)</td>
+                            <td>User's bank branch name</td>
+                            <td>Sucursal 12</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>bank_account</td>
+                            <td>String (max. 45 chars)</td>
+                            <td>User's bank account number</td>
+                            <td>88365484</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>account_type</td>
+                            <td>Char (lenght: 1 char)</td>
+                            <td>The type of account.
+                                C: for Current accounts
+                                S: for Savings accounts</td>
+                            <td>S</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>amount</td>
+                            <td>Decimal (max. 2 decimal numbers)</td>
+                            <td>Cashout amount (in the currency
+                                entered in the field “currency”)</td>
+                            <td>199.95</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>control</td>
+                            <td>String</td>
+                            <td>Control string</td>
+                            <td>aklsgdASGDN45NGIJIJ34gklner</td>
+                            <td><span class="badge badge-danger background-color-cashout">2</span></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                <tbody>
-                    <tr>
-                        <td>code</td>
-                        <td>Response code</td>
-                        <td>200 if success. If not see <a>errors</a></td>
-                    </tr>
-
-                    <tr>
-                        <td>message</td>
-                        <td>Response message</td>
-                        <td>"success" or <a>error message</a></td>
-                    </tr>
-
-                    <tr>
-                        <td>response</td>
-                        <td>Response of request</td>
-                        <td>enum('SUCCESS','ERROR') </td>
-                    </tr>
-
-                    <tr>
-                        <td>id_cashout</td>
-                        <td>Astropay internal ID</td>
-                        <td>"success" or <a>error message</a></td>
-                    </tr>
-                    <tr>
-                        <td>auth_code</td>
-                        <td>Astropay authentication code</td>
-                        <td>Use for VOID a cashout (not available)</td>
-                    </tr>
-
-                    <tr>
-                        <td>email</td>
-                        <td>User's email</td>
-                        <td>Value sent in request</td>
-                    </tr>
-
-                    <tr>
-                        <td>amount</td>
-                        <td>Cashout amount</td>
-                        <td>Value sent in request</td>
-                    </tr>
-                    <tr>
-                        <td>currency</td>
-                        <td>Cashout currency</td>
-                        <td>Value sent in request</td>
-                    </tr>
-                    <tr>
-                        <td>control</td>
-                        <td>Control signature</td>
-                        <td><span class="badge badge-danger background-color-cashout-card">1</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            <span class="badge badge-danger background-color-cashout-card">1</span>
-            Control signature
-            <ul>
-                <li>
-                    $secret - secret key of the account
-                </li>
-                <li>
-                    $id_cashout - cashout identification 
-                </li>
-                <li>
-                    $x_email - user's email
-                </li>
-                <li>
-                    $x_amount - cashout amount
-                </li>
-                <li>
-                    $x_currency - cashout currency
-                </li>
-            </ul>    
-
-
-            <div class="alert alert-info">
-                $control_signature = sha1($secret.$id_cashout.$x_email.number_format($x_amount,2).$x_currency)
-            </div>
-
-            <div class="well">
-                <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Notes</h4>
+                <p>
+                    <span class="badge badge-danger background-color-cashout">1</span>
+                    x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+                </p>
+                <p>
+                    <span class="badge badge-danger background-color-cashout">2</span>
+                    Control string
+                </p>
                 <ul>
                     <li>
-                        Once this method is invoked, the cashout amount is automatically discounted from Merchant's balance.
+                        $external_id - unique transaction ID at merchant
                     </li>
                     <li>
-                        It is Merchant's responsibility to send the correct destination email address. We suggest asking for a confirmation after the user enters the email address.
+                        $cpf - user’s personal identification number
                     </li>
                     <li>
-                        All cards are generated in USD (dollar). If a different currency is sent amount will be converted to USD.
+                        $country - user’s country
                     </li>
-                </ul>
-            </div>
-
-            <h3 class="block lighter"> Return examples </h3>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Success
-                    </h4>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li>
-                                {"code":200, "message":"success", "auth_code":"05ae7f7d", "response":"SUCCESS", "id":2, "email":"astropay@gmail.com", "amount":"1", "currency":"BRL", "signature":"39bf3080ced6bc14eca14addbb3b241060da800c"}
-                            </li>
-                        </ul>                   
+                    <li>
+                        $amount - cashout amount
+                    </li>
+                    <li>
+                        $bank - user’s bank
+                    </li>
+                    <li>
+                        $bank_branch - user’s bank branch
+                    </li>
+                    <li>
+                        $bank_account - user’s bank account
+                    </li>
+                    <li>
+                        $secret_key - secret key
+                    </li>
+                </ul>    
+                <div>
+                    <div class="alert alert-info">
+                        $message = $external_id . 'I' . $cpf . 'L' . $country . '2' . $amount . '8' . $bank . 'C' . $bank_branch . 'O' . $bank_account;<br>
+                        strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $this->secret_key)));
                     </div>
                 </div>
-            </div>
 
-            <br><br>
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Errors
-                    </h4>
+                <h3 class="block lighter"> Optional parameters </h3>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>beneficiary</td>
+                            <td>String (max. 100 chars)</td>
+                            <td>User’s full name</td>
+                            <td>Name Surname</td>
+                        </tr>
+                        <tr>
+                            <td>beneficiary_id</td>
+                            <td>String (max. 16 chars)</td>
+                            <td>User’s personal id</td>
+                            <td>123456789</td>
+                        </tr>
+                        <tr>
+                            <td>iban</td>
+                            <td>String (max. 32 chars)</td>
+                            <td>The full account routing number</td>
+                            <td>BB1230088365484</td>
+                        </tr>
+                        <tr>
+                            <td>comments</td>
+                            <td>String (max. 200 chars)</td>
+                            <td>A commentary for this cashout</td>
+                            <td>This is a comment</td>
+                        </tr>
+                        <tr>
+                            <td>currency</td>
+                            <td>String (3 chars)</td>
+                            <td>Each country accepts USD and local
+                                currency.
+                                Default: USD</td>
+                            <td>BRL</td>
+                        </tr>
+                        <tr>
+                            <td>notification_url</td>
+                            <td>String (max: 100 chars)</td>
+                            <td>To be provided if the notification
+                                URL is different from the
+                                notification URL defined by default</td>
+                            <td>http://astropay.com/notificat</td>
+                        </tr> 
+                    </tbody>
+                </table>
+
+
+                <h2 id="cc_response" class=" block lighter">Response</h2>
+                <div class="alert alert-info">
+                    {
+                    “status”:”0”,
+                    “cashout_id”: “[identification of the cashout in our system]”,
+                    “description”: “OK”
+                    }
                 </div>
+            </div>
+            <!-- request cashout -->
 
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li>
-                                {"code":401, "message":"Invalid credentials"}
-                            </li>
-                            <li>
-                                {"code":409, "message":"Duplicated cashout", "response":"ERROR", "id":6, "email":"astropay@gmail.com", "amount":"10", "currency":"USD", "signature":"5f0cf4a8ffa2e4184433d960de4828b5bda44f76"}
-                            </li>
-                            <li>
-                                {"code":300, "message":"Amount must be a positive value", "response":"ERROR", "id":9,"email":"astropay@gmail.com", "amount":"-10", "currency":"USD", "signature":"d69c8de1e85aba44128afb2fbd822a53a349fccb"}
-                            </li>
-                            <li>
-                                {"code":302, "message":"Invalid control string", "response":"ERROR", "id":10, "email":"astropay@gmail.com", "amount":"10", "currency":"DSD", "signature":"c1ce79a310b2ae7b33f38990146c1168a7f4908b"}
-                            </li>
-                            <li>
-                                {"code":507, "message":"Invalid currency", "response":"ERROR", "id":11, "email":"astropay@gmail.com", "amount":"10", "currency":"USQ", "signature":"f5cf2efefdcfd333fa349da6ca55f491b1ae079f"}
-                            </li>
-                        </ul>                   
+
+
+
+            <!-- check cashout status-->
+            <div>
+                <h1 class="header block lighter color-cashout blue">Function: check_status_cashout</h1>
+                <p>
+                    This function checks the status of a cashout.
+                </p>
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-cashout"></i>
+                    https://astropaycard.com/api_curl/cashout_api/check_status_cashout
+                </p>
+                <h2 id="cc_request" class=" block lighter"> Request </h2>
+                <h3 class="block lighter"> Mandatory parameters </h3>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay platform</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-cashout">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>pass</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay platform </td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-cashout">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>external_id</td>
+                            <td>String (max. 100 chars)</td>
+                            <td>Cashout identification (at the merchant site)</td>
+                            <td>cashout1234</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cashout_id</td>
+                            <td>Number (max. 10 chars)</td>
+                            <td>Cashout identification (at AstroPay site)</td>
+                            <td>10050</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>control</td>
+                            <td>String</td>
+                            <td>Control string</td>
+                            <td>aklsgdASGDN45NGIJIJ34gklner</td>
+                            <td><span class="badge badge-danger background-color-cashout">2</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    <span class="badge badge-danger background-color-cashout">1</span>
+                    x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+                </p>
+                <p>
+                    <span class="badge badge-danger background-color-cashout">2</span>
+                    Control string
+                </p>
+                <ul>
+                    <li>
+                        $id_external – unique transaction ID at merchant
+                    </li>
+                    <li>
+                        $cashout_id - identification of the cashout in our system
+                    </li>
+                    <li>
+                        $secret_key – the secret key
+                    </li>
+                </ul>    
+                <div>
+                    <div class="alert alert-info">
+                        $message = 'I2' . $external_id . 'L8' . $cashout_id;<br>
+                        strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $this->secret_key)));
                     </div>
                 </div>
-            </div>
 
-            <h1 id="cc_currencies">Available currencies</h1>
+                <h2 id="cc_response" class=" block lighter">Response</h2>
+                <div class="alert alert-info">
+                    {
+                    “status”:”0”,
+                    “cash_out_status”: “[the status of the cashout]”,
+                    “description”: “[the description of the status of the cashout]”
+                    }
+                </div>
+            </div>
+            <!-- check cashout status-->
+
+
+
+            <!-- cancel cashout-->
+            <div>
+                <h1 class="header block lighter color-cashout">Function: cancel_cashout</h1>
+                <p>
+                    This function cancels a cashout. The status of the cashout should be “Pending”.
+                </p>
+                <p>
+                    POST:
+                    <br>
+                    <i class="ace-icon fa fa-globe bigger-125 color-cashout"></i>
+                    https://astropaycard.com/api_curl/cashout_api/cancel_cashout
+                </p>
+                <h2 id="cc_request" class=" block lighter"> Request </h2>
+                <h3 class="block lighter"> Mandatory parameters </h3>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Format</th>
+                            <th>Description</th>
+                            <th>Example </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>login</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant ID in Astropay platform</td>
+                            <td>AsGsd35Grf</td>
+                            <td><span class="badge badge-danger background-color-cashout">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>pass</td>
+                            <td>String (length: 32 chars)</td>
+                            <td>Your merchant password in Astropay platform </td>
+                            <td>D23weF2f4g</td>
+                            <td><span class="badge badge-danger background-color-cashout">1</span></td>
+                        </tr>
+
+                        <tr>
+                            <td>external_id</td>
+                            <td>String (max. 100 chars)</td>
+                            <td>Cashout identification (at the merchant site)</td>
+                            <td>cashout1234</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cashout_id</td>
+                            <td>Number (max. 10 chars)</td>
+                            <td>Cashout identification (at AstroPay site)</td>
+                            <td>10050</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>control</td>
+                            <td>String</td>
+                            <td>Control string</td>
+                            <td>aklsgdASGDN45NGIJIJ34gklner</td>
+                            <td><span class="badge badge-danger background-color-cashout">2</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>
+                    <span class="badge badge-danger background-color-cashout">1</span>
+                    x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+                </p>
+                <p>
+                    <span class="badge badge-danger background-color-cashout">2</span>
+                    Control string
+                </p>
+                <ul>
+                    <li>
+                        $id_external – unique transaction ID at merchant
+                    </li>
+                    <li>
+                        $cashout_id - identification of the cashout in our system
+                    </li>
+                    <li>
+                        $secret_key – the secret key
+                    </li>
+                </ul>    
+                <div>
+                    <div class="alert alert-info">
+                        $message = 'PS4' . $external_id . 'ta7' . $cashout_id;<br>
+                        strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $this->secret_key)));
+                    </div>
+                </div>
+
+                <h2 id="cc_response" class=" block lighter">Response</h2>
+                <div class="alert alert-info">
+                    {
+                    “status”:0,
+                    “description”: “OK”,
+                    }
+                </div>
+            </div>
+            <!-- cancel cashout-->
+
+
+            <!-- notifications -->
+            <div>
+                <h1 class="header block lighter color-cashout">Notification parameters</h1>
+                <p>
+                    The notification will inform that the status of a cashout changed. After that you will need to ask the
+                    new status of the cashout.
+                </p>
+                <p>
+                    Notification will be sent to the merchant notification URL by POST protocol, with the following
+                    parameters:
+                </p>
+
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>0
+                            <th>Field</th>
+                            <th>Format</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>external_id</td>
+                            <td>String (max. 100 chars)</td>
+                            <td>Cashout identification (at the merchant site)</td>
+                            <td>cashout1234</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>cashout_id</td>
+                            <td>Number (max. 10 chars)</td>
+                            <td>Cashout identification (at AstroPay site)</td>
+                            <td>10050</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>date</td>
+                            <td>Format: YYYY-MM-DD HH:MM:SS (GMT)</td>
+                            <td>The date when the status changed</td>
+                            <td>2015-10-03 15:32:01</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>control</td>
+                            <td>String</td>
+                            <td>Control string</td>
+                            <td>aklsgdASGDN45NGIJIJ34gklner</td>
+                            <td><span class="badge badge-danger background-color-cashout">1</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>
+                    <span class="badge badge-danger background-color-cashout">1</span>
+                    Control string
+                </p>
+                <ul>
+                    <li>
+                        $id_external – unique transaction ID at merchant
+                    </li>
+                    <li>
+                        $secret_key – the secret key
+                    </li>
+                </ul>    
+                <div>
+                    <div class="alert alert-info">
+                        $message = 'Be4' . $external_id . 'Bo7';<br>
+                        strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $this->secret_key)));
+                    </div>
+                </div>
+
+            </div>
+            <!-- notifications-->
+
+
+            <h1 class="header block lighter color-cashout">Codes</h1>
+
+            <h2 id="cc_references">Cashout status</h2>
             <p>
-                Based on standard ISO 4217
+                If status = 0 in the response of the check_status_cashout function, the cash_out_status field could take the following values:
             </p>
+
             <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+
                 <tbody>
                     <tr>
-                        <td>AED</td>   
-                        <td>AFN</td>     
-                        <td>ALB</td>    
-                        <td>AMD</td>    
-                        <td>ANG</td>      
-                        <td>AOA</td>      
-                        <td>ARS</td>     
-                        <td>AUD</td>      
-                        <td>AWG</td>      
-                        <td>AZN</td>  
-                        <td>BAM</td>   
-                        <td>BBD</td>     
-                        <td>BDT</td>    
-                        <td>BGN</td>
-                        <td>BHD</td>      
-                        <td>BIF</td>      
-                        <td>BMD</td>      
-                        <td>BND</td>      
-                        <td>BOB</td>      
-                        <td>BRL</td>
-                        <td>BSD</td> 
-                        <td>BTN</td>
+                        <td>0</td>
+                        <td>Pending</td>
                     </tr>
                     <tr>
-                        <td>BWP</td>    
-                        <td>BYR</td>    
-                        <td>BZD</td>      
-                        <td>CAD</td>      
-                        <td>CDF</td>      
-                        <td>CHF</td>
-                        <td>CLF</td>      
-                        <td>CLP</td> 
-                        <td>CNY</td>   
-                        <td>COP</td>     
-                        <td>CRC</td>    
-                        <td>CUP</td>    
-                        <td>CVE</td>
-                        <td>CZK</td>      
-                        <td>DAT</td>      
-                        <td>DJF</td>      
-                        <td>DKK</td>      
-                        <td>DOP</td>   
-                        <td>DZD</td>   
-                        <td>EGP</td>
-                        <td>ETB</td>    
-                        <td>EUR</td>
+                        <td>1</td>
+                        <td>Completed</td>
                     </tr>
                     <tr>
-                        <td>FJD</td>      
-                        <td>FKP</td>      
-                        <td>GBP</td>      
-                        <td>GEL</td>      
-                        <td>GHS</td>   
-                        <td>GIP</td> 
-                        <td>GMD</td>   
-                        <td>GNF</td>     
-                        <td>GTQ</td>    
-                        <td>GYD</td>    
-                        <td>HKD</td>      
-                        <td>HNL</td>  
-                        <td>HRK</td>      
-                        <td>HTG</td>      
-                        <td>HUF</td>      
-                        <td>IDR</td>    
-                        <td>IEP</td>   
-                        <td>ILS</td>     
-                        <td>INR</td>    
-                        <td>IQD</td>    
-                        <td>IRR</td>      
-                        <td>ISK</td> 
+                        <td>2</td>
+                        <td>Cancelled</td>
                     </tr>
                     <tr>
-                        <td>JMD</td>      
-                        <td>JOD</td>      
-                        <td>JPY</td>      
-                        <td>KES</td>  
-                        <td>KGS</td>   
-                        <td>KHR</td>     
-                        <td>KMF</td>    
-                        <td>KPW</td>    
-                        <td>KRW</td>      
-                        <td>KWD</td>      
-                        <td>KZT</td>      
-                        <td>LAK</td>      
-                        <td>LBP</td>      
-                        <td>LKR</td> 
-                        <td>LRD</td>   
-                        <td>LSL</td>     
-                        <td>LTL</td>    
-                        <td>LVL</td>    
-                        <td>LYD</td>      
-                        <td>MAD</td>      
-                        <td>MDL</td>      
-                        <td>MGA</td>    
-
-                    </tr>
-                    <tr>
-                        <td>MKD</td>      
-                        <td>MMK</td>  
-                        <td>MNT</td>   
-                        <td>MOP</td>     
-                        <td>MRO</td>    
-                        <td>MUR</td>    
-                        <td>MVR</td>      
-                        <td>MWK</td>      
-                        <td>MXN</td>      
-                        <td>MYR</td>      
-                        <td>MZN</td>      
-                        <td>NAD</td>
-                        <td>NGN</td>   
-                        <td>NIO</td>     
-                        <td>NOK</td>    
-                        <td>NPR</td>    
-                        <td>NZD</td>      
-                        <td>OMR</td>      
-                        <td>PAB</td>
-                        <td>PEN</td>      
-                        <td>PGK</td>      
-                        <td>PHP</td>            
-                    </tr>
-                    <tr>
-                        <td>PKR</td>   
-                        <td>PLN</td>     
-                        <td>PYG</td>    
-                        <td>QAR</td>
-                        <td>RON</td>      
-                        <td>RSD</td>      
-                        <td>RUB</td>      
-                        <td>RWF</td>      
-                        <td>SAR</td>      
-                        <td>SBD</td>      
-                        <td>SCR</td> 
-                        <td>SDG</td>     
-                        <td>SEK</td>    
-                        <td>SGD</td>    
-                        <td>SHP</td>      
-                        <td>SLL</td>      
-                        <td>SOS</td>      
-                        <td>SRD</td>   
-                        <td>STD</td>      
-                        <td>SVC</td>    
-                        <td>SYP</td>   
-                        <td>SZL</td> 
-                    </tr>
-                    <tr>
-                        <td>THB</td>    
-                        <td>TJS</td>    
-                        <td>TMT</td>   
-                        <td>TND</td>      
-                        <td>TOP</td>      
-                        <td>TRY</td>      
-                        <td>TTD</td>      
-                        <td>TWD</td>   
-                        <td>TZS</td>   
-                        <td>UAH</td>
-                        <td>UGX</td>    
-                        <td>USD</td>    
-                        <td>UYU</td>      
-                        <td>UZS</td>      
-                        <td>VEF</td>      
-                        <td>VND</td>      
-                        <td>VUV</td>
-                        <td>WST</td>      
-                        <td>XAF</td>   
-                        <td>XCD</td>     
-                        <td>XDR</td>    
-                        <td>XOF</td>        
-                    </tr>
-                    <tr>
-                        <td>XPF</td>      
-                        <td>YER</td> 
-                        <td>ZAR</td>      
-                        <td>ZMK</td>      
-                        <td>ZWL</td>  
+                        <td>e</td>
+                        <td>Rejected</td>
                     </tr>
                 </tbody>
             </table>
-            <h1 class="header block lighter color-cashout-card blue">Errors</h1>
 
-            <h2 id="cc_references">References</h2>
+            <h2 id="cc_references">Error code references</h2>
 
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
@@ -569,15 +628,19 @@
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Syntax validation in parameter/s</th>
-                        <th>3xx</th>
+                        <th>Code</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
                         <td>300</td>
-                        <td>Invalid + [param name]</td>
+                        <td>Invalid params + [param name]</td>
+                    </tr>
+                    <tr>
+                        <td>301</td>
+                        <td>Empty params + [param name]</td>
                     </tr>
                     <tr>
                         <td>302</td>
@@ -585,102 +648,66 @@
                     </tr>
                     <tr>
                         <td>401</td>
-                        <td>Invalid merchant credentials or inactive account </td>
+                        <td>Invalid credentials </td>
                     </tr>
                     <tr>
                         <td>402</td>
-                        <td>Unregistered IP address </td>
+                        <td>Unregistered IP address (register in merchant's panel)</td>
                     </tr>
                     <tr>
-                        <td>403</td>
-                        <td>Merchant has no authorization to use this API</td>
-                    </tr>
-                    <tr>
-                        <td>500</td>
-                        <td>Insufficient founds</td>
+                        <td>507</td>
+                        <td>Country not found for cashouts</td>
                     </tr>
                     <tr>
                         <td>508</td>
-                        <td>Limit exceeded</td>
+                        <td>Limit exceeded + [limit name]</td>
                     </tr>
                     <tr>
-                        <td>512</td>
-                        <td>Duplicated cashout</td>
+                        <td>509</td>
+                        <td>Cashout not found with this ID</td>
                     </tr>
                     <tr>
-                        <td>513</td>
-                        <td>Unknown currency</td>
+                        <td>510</td>
+                        <td>Invalid status: cashout is not Pending</td>
                     </tr>
                     <tr>
-                        <td>700</td>
-                        <td>Merchant is not properly configured</td>
+                        <td>511</td>
+                        <td>External ID already used</td>
                     </tr>
                     <tr>
-                        <td>700</td>
-                        <td>Unable to load merchant information</td>
+                        <td>702</td>
+                        <td>Could not cancel cashout</td>
                     </tr>
                     <tr>
-                        <td>700</td>
-                        <td>Could not create authorization code</td>
+                        <td>703</td>
+                        <td>Could not make the cashout</td>
                     </tr>
                 </tbody>
             </table>
 
+            <p>Example</p>
+            <div class="alert alert-info">
+                {“status”:0, ”desc”:”Error:”Invalid credentials”, ”error_code”:”401”}
+            </div>
 
-            <h1 id="cc_testing" class="header block lighter color-cashout-card blue">Testing on Sandbox</h1>
+
+            <h1 class="header block lighter color-cashout ">Development and testing</h1>
+
             <p>
-                For testing error responses, send in parameter x_email the following values to function Send Card:
+                There is a test environment available for integration development and testing, which simulates most of the
+                requests and transaction types available in the platform.
+            </p>
+            <p>
+                To access it, you need to use the subdomain sandbox. So, the base URLs for development are:
             </p>
 
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Code (response) </th>
-                        <th>Description (response)</th>
-                    </tr>
-                </thead>
+            <i class="ace-icon fa fa-globe bigger-125 color-cashout"></i>
+            https://sandbox.astropaycard.com/api_curl/cashout_api/
 
-                <tbody>
-                    <tr>
-                        <td>cashout_302@mail.com</td>
-                        <td>302</td>
-                        <td>Invalid control string</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_500@mail.com</td>
-                        <td>500</td>
-                        <td>Insufficient founds</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_300@mail.com</td>
-                        <td>300</td>
-                        <td>Invalid amount</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_508@mail.com</td>
-                        <td>508</td>
-                        <td>Limit exceeded</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_512@mail.com</td>
-                        <td>512</td>
-                        <td>Duplicated cashout</td>
-                    </tr>
-
-                    <tr>
-                        <td>cashout_513@mail.com</td>
-                        <td>513</td>
-                        <td>Unknown currency</td>
-                    </tr>
-                </tbody>
-            </table>
+            <p>
+                Please note that in the test environment no transactions will actually processed.
+            </p>
 
         </div>
-
     </body>
 </html>

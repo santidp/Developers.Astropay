@@ -76,6 +76,12 @@ function navigateCashout() {
         url: "/Developers.Astropay/html/frames/cashout-frame.html", dataType: "html"
     }).done(function (responseHtml) {
         $("#main-content").html(responseHtml);
+
+        jQuery.ajax({
+            url: "/Developers.Astropay/html/frames/common/considerations.html", dataType: "html"
+        }).done(function (responseHtml) {
+            $("#considerations-container").html(responseHtml);
+        });
     });
 
     $('.btn').each(function () {
