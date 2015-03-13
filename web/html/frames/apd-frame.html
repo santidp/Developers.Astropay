@@ -1,12 +1,6 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
-        <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -14,70 +8,131 @@ and open the template in the editor.
 
         <div class="page-header">
             <h1 class="color-apc">
-                Astropay Direct (Streamline & Classic unificados)
+                Astropay Direct
             </h1>
         </div><!-- /.page-header -->
 
         <h1 id="cc_introduction" class="header block lighter color-apc blue">Introduction</h1>
         <p>
-            AstroPay Card is a virtual pre-paid card, accepted at hundreds of online stores
-            integrated with AstroPay. Simply register for free, choose the value of the card you
-            would like to purchase and pay using the most popular payments methods in your
-            country. It’s as easy as that!
+            The AstroPay Direct Streamline API is used to integrate payments via Credit Card, Online Bank
+            Payment and Cash Payment Methods (eg Boleto Bancario in Brazil and OXXO in Mexico).
+            Customers do not need to visit an AstroPay page to enter any details, so the payment process is
+            “streamlined”.
+        </p>
+        <p class="col-sm-10">
+            However, in order for Streamline to work, AstroPay needs the merchant to collect some
+            key data (email address and personal identity number – eg CPF number in Brazil).
+            If you are not able to collect this information, Astropay is capable of collecting it:
+        </p>
+        <a class="dd-item col-sm-2" data-id="1"  href="../html/docs/apdClassic.pdf" target="_blank">
+            <div class="dd-handle">
+                Download Basic API
+                <i class="pull-right bigger-130 ace-icon fa fa-cloud-download color-apd"></i>
+            </div>
+        </a>
 
+        <p>
+            When a user selects a payment method supported by AstroPay on the merchant website, the merchant
+            should send the transaction and user data to AstroPay.
+            AstroPay will verify the user data (personal id and data consistency, according our KYC policies), to
+            establish whether the user can proceed with the transaction, or not.
         </p>
         <p>
-            AstroPay Card can be purchased in 10 countries where AstroPay has operations. It
-            can be paid through cash payment stores, boleto in Brazil, e-wallets, online bank transfer,
-            debit and credit card and many more.
+            If approved, we will respond with the URL to which the merchant should redirect the user and the user
+            will be redirected to the appropriate page to complete their transaction:
+        </p>
+        <ul>
+            <li>
+                Credit Cards - to a credit card processor page for card data entry
+            </li>
+            <li>
+                Online Bank Payments - to their online bank account to log in and complete the payment
+            </li>
+            <li>
+                Cash Payment Methods - to a printable copy of their payment advice, which they can use to pay
+            </li>
+        </ul>
+        <p>
+            After the payment has been made, the client is returned to the merchant site (to whichever “Return
+            URL” the merchant specifies).
         </p>
         <p>
-            It is also instant, no need to wait. Simply purchase your card and you will immediately
-            receive the card information on your email ready to be used in the site of your
-            preference.
+            Once the payment is confirmed by the bank/credit card company, AstroPay will send the transaction
+            result to your merchant confirmation URL (“Confirmation URL”)
         </p>
+
 
         <!-- Considerations-->
         <div id="considerations-container">
 
         </div>
 
-        <!--/verif/validator-->
+        <h1 class="header block lighter color-cashout-card blue">Environments</h1>
+        <p>
+            Your account is associated with two different environments: Sandbox and Live. <br>
+        <h2  class="header block lighter" id="cc_urls">URLs, credentials & account configuration</h2>
+        <p>
+            Base URL for communication:
+        </p>
+
+        <h3 class="block lighter">Sandbox</h3>
+        Test environment available for integration development and testing which simulates the requests and transactions available in the platform. On test environment no transactions will actually be processed.
+        <p>                
+            <i class="ace-icon fa fa-globe bigger-125 color-cashout-card"></i>
+            <a  class="btn btn-link"> https://sandbox.astropaycard.com/api_curl/streamline/ </a>
+        </p>
+
+        <h3 class="block lighter">Live</h3>
+        Production environment
+        <p>                
+            <i class="ace-icon fa fa-globe bigger-125 color-cashout-card"></i>
+            <a  class="btn btn-link"> https://astropaycard.com/api_curl/streamline/ </a>
+        </p>
+
+        <div class="well">
+            <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Note</h4>
+            You will find your credentials in the panel: "Integration -> Credentials & Settings". Notice that credentials are different between Both environments.
+            <br>
+        </div>
+        <div class="well">
+            <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Note</h4>
+            Once the integration is finished and tested, fill your account details in the panel: "Settings -> Merchant Account" and <b>"Request to go live"</b>. Your live credentials will be available when Merchant's account is in Live mode.  
+            <br>
+        </div>
+        <p>
+            There is one bank defined in our sandbox server for testing purposes. <b>The bank code is TE</b> and the bank's
+            name is GNB. Once the testing bank is selected from our testing environment, you will be forwarded to a
+            dummy website for this imaginary bank. There, you will be presented with a login page. Please leave the
+            login and password fields blank. When you submit the form, you will be asked if you would like to set the
+            transaction to successful pending or rejected.
+        </p>
+        <p>
+            Certain API calls require consumer data. For testing in Brazil, please use the following (all other countries
+            can use random data for development and testing purposes):<br>
+            Cpf: 00003456789<br>
+            Email: testing@astropaycard.com<br>
+            Name: ASTROPAY TESTING<br>
+            Birthdate: 04/03/1984<br>
+        </p>
+
+
+        <!--new invoice-->
         <div id="cc_validator_request">
             <h1 class="header block lighter color-apc blue">
-                Function: /verif/validator
+                Function: New invoice
             </h1>
             <p>
-                /verif/validator is the WebService that recieve and process the transactional
-                requests.
+                This function creates a transaction and returns a URL to redirect the user to a safe page where he is
+                redirected again to his preferred bank page, at which he can confirm his payment.
             </p>
-            Merchant is going to use this WebService to:
-            <ul>
-                <li>
-                    Authorize transactions (x_type=AUTH_ONLY)
-                </li>
-                <li>
-                    Capture transactions (x_type=CAPTURE_ONLY)
-                </li>
-                <li>
-                    Authorize and capture transactions (x_type=AUTH_CAPTURE)
-                </li>
-                <li>
-                    Void transactions (x_type=VOID)
-                </li>
-                <li>
-                    Refund transactions (x_type=REFUND)
-                </li>
-            </ul>
 
             <p>
                 POST:
                 <br>
                 <i class="ace-icon fa fa-globe bigger-125 color-apc"></i>
-                <a href="#cc_urls">URL base</a> + /verif/validator
+                <a href="#cc_urls">URL base</a> + /NewInvoice
             </p>
             Mandatory parameters
-
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -98,74 +153,85 @@ and open the template in the editor.
                         <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
-                        <td>x_tran_key</td>
+                        <td>x_trans_key</td>
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant password in Astropay platform </td>
                         <td>D23weF2f4g</td>
                         <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
-                        <td>x_version</td>
-                        <td>Decimal (4,2)</td>
-                        <td>API version</td>
-                        <td>2.0</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_type</td>
-                        <td>“AUTH_ONLY”, “CAPTURE_ONLY”, “AUTH_CAPTURE”, “REFUND”, “VOID”</td>
-                        <td>The transaction type</td>
-                        <td>AUTH_CAPTURE</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_test_request</td>
-                        <td>Char(1)</td>
-                        <td>Selects if the transaction is a test</td>
-                        <td>Y/td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_card_num</td>
-                        <td>String (length: 25 chars)</td>
-                        <td>AstroPay card number</td>
-                        <td>1145426000818586</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_card_code</td>
-                        <td>Integer (length: 4 chars)</td>
-                        <td>AstroPay card security code (CVV)</td>
-                        <td>1234</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_exp_date</td>
-                        <td>String (length: 7 chars)</td>
-                        <td>AstroPay card expiration date</td>
-                        <td>02/2013</td>
+                        <td>x_invoice</td>
+                        <td>String (max. lenght 200 chars)</td>
+                        <td>Unique transaction
+                            identification at the merchant
+                            site.</td>
+                        <td>Invoice1234</td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>x_amount</td>
-                        <td>Decimal (10,2)</td>
-                        <td>Transaction amount</td>
-                        <td>25.69</td>
+                        <td>Decimal (max. 2 decimal numbers)</td>
+                        <td>Transaction amount (in the
+                            currency entered in the field
+                            “x_currency”)</td>
+                        <td>100.95</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>x_unique_id</td>
-                        <td>String (max length: 50)</td>
-                        <td>Unique, anonymized identifier of users in the merchant system</td>
-                        <td>25.69</td>
+                        <td>x_bank</td>
+                        <td>String (max. 3 digits)</td>
+                        <td>Payment method code. See <a href="#cc_pm_codes">payment method codes</a></td>
+                        <td>VI</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>x_country</td>
+                        <td>String (max. length: 2 chars)</td>
+                        <td>User’s country. in ISO 3166-1 alpha-2 codes</td>
+                        <td>BR</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>x_iduser</td>
+                        <td>Decimal (max. 125 chars)</td>
+                        <td>Unique user id at the merchant side</td>
+                        <td>user 123</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>x_cpf</td>
+                        <td>Number (max. 30 digits)</td>
+                        <td>User’s personal identification
+                            number:
+                            CPF or CNPJ for Brazil, DNI for
+                            Argentina and ID for other
+                            countries.</td>
+                        <td>123456789</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>x_invoice_num</td>
-                        <td>String (max length: 20)</td>
-                        <td>Unique identifier of Merchant transaction</td>
-                        <td>25.69</td>
+                        <td>x_name</td>
+                        <td>String</td>
+                        <td>User’s full name.</td>
+                        <td>Ivan Lolivier</td>
                         <td></td>
+                    </tr> 
+                    <tr>
+                        <td>x_email</td>
+                        <td>String</td>
+                        <td>User’s email address.</td>
+                        <td>santiago@astropay.com</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>control</td>
+                        <td>String</td>
+                        <td>Control string</td>
+                        <td>JASG44DNNGIJ34IJ34OKOEWJNCV874Y4UY</td>
+                        <td><span class="badge badge-danger background-color-full-api">2</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -180,67 +246,89 @@ and open the template in the editor.
                         <th>Description</th>
                         <th>Example </th>
                         <th>Default value</th>
-                        <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <td>x_duplicate_window</td>
-                        <td>Integer</td>
-                        <td>The time window in seconds after a transaction is taken as duplicated</td>
-                        <td>60</td>
-                        <td>120</td>
-                        <td><span class="badge badge-danger background-color-apc">2</span></td>
+                        <td>x_currency</td>
+                        <td>String (length: 3 chars)</td>
+                        <td>Transaction currency in ISO 4217. Mandatory if amount is present</td>
+                        <td>EUR</td>
+                        <td></td>
                     </tr>
+
                     <tr>
-                        <td>x_delim_char</td>
-                        <td>Char(1)</td>
-                        <td>Response delimiting char between fields when the x_response_format is “string”</td>
-                        <td>@</td>
-                        <td>|</td> 
+                        <td>x_description</td>
+                        <td>String (max. 200 chars)</td>
+                        <td>Transaction description</td>
+                        <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>x_response_format</td>
+                        <td>x_bdate</td>
                         <td>String</td>
-                        <td>The response format. Options: “string”, “json”, “xml”</td>
-                        <td>json</td>
-                        <td>string</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_delim_data</td>
-                        <td>Boolean</td>
-                        <td>The request to receive a delimited transaction response</td>
-                        <td>true</td>
-                        <td>true</td>
-                        <td></td>
-                    </tr>
-                    <!--                <tr>
-                                        <td>x_method</td>
-                                        <td>"CC"</td>
-                                        <td>Type of payment method</td>
-                                        <td>CC</td>
-                                        <td>CC</td>
-                                        <td></td>
-                                    </tr>-->
-                    <tr>
-                        <td>x_trans_id</td>
-                        <td>string(50)</td>
-                        <td>(For VOID and REFUND only) TransactionID param returned by AstroPay on AUTH_CAPTURE or CAPTURE_ONLY previous tranasction</td>
-                        <td>123456</td>
+                        <td>User’s date of birth (Format: YYYYMMDD)</td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td>x_auth_code</td>
-                        <td>string(20)</td>
-                        <td>(For CAPTURE_ONLY only) TransactionID param sent by AstroPay in previous AUTH_ONLY call</td>
-                        <td>as3gfd42d</td>
-                        <td></td>
+                        <td>x_address</td>
+                        <td>String</td>
+                        <td>User’s address</td>
+                        <td>1225 Bonavita St.</td>
                         <td></td>
                     </tr>
+                    <tr>
+                        <td>x_zip</td>
+                        <td>String</td>
+                        <td>User’s zip/postal code</td>
+                        <td>11300</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_city</td>
+                        <td>String</td>
+                        <td>User’s city</td>
+                        <td>Sao Paulo</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_state</td>
+                        <td>String</td>
+                        <td>User’s state. Brazilian 2 letter format</td>
+                        <td>MO</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_mobile</td>
+                        <td>String</td>
+                        <td>User’s mobile phone number</td>
+                        <td>099123456</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_return</td>
+                        <td>String</td>
+                        <td>To be provided if the
+                            return URL is different
+                            from the return URL
+                            registered by the merchant. See <a href="#cc_x_confirm"> return url</a></td>
+                        <td>099123456</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>x_confirm</td>
+                        <td>String</td>
+                        <td>To be provided if the
+                            confirmation URL is different
+                            from the confirmation URL
+                            registered by the merchant. See <a href="#cc_x_confirm"> confirmation url</a></td>
+                        <td>http://merchant/confirm</td>
+                        <td></td>
+                    </tr>
+
                 </tbody>
             </table>
 
@@ -249,368 +337,97 @@ and open the template in the editor.
                 <span class="badge badge-danger background-color-apc">1</span>
                 x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
             </p>
-
-
-            <p>
-                <span class="badge badge-danger background-color-apc">2</span>
-                Transactions sent with same amount and same card information, within a time window of 10 seconds will be taken as duplicated.
-                Batch transactions not recommended, if needed set x_window = 0.
-            </p>
-
-            <h2>
-                Additional parameters
-            </h2>
-
-            <p>
-                You can send us more information for reference proporses:
-            </p>
-
-
-            <table id="simple-table" class="table table-striped table-bordered table-hover ">
-                <thead>
-                    <tr>
-                        <th>Transaction</th>
-                        <th>About your customer</th>
-                        <th>Shipping information</th>
-                        <th>Tax information </th>
-                        <th>Order number</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>x_description (product description)</td>
-                        <td>x_cust_id</td>
-                        <td>x_ship_to_first_name</td>
-                        <td>x_tax</td>
-                        <td>x_po_num</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_first_name</td>
-                        <td>x_ship_to_last_name</td>
-                        <td>x_duty</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_last_name</td>
-                        <td>x_ship_to_company</td>
-                        <td>x_freight</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_company</td>
-                        <td>Tx_ship_to_address</td>
-                        <td>x_tax_exempt</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_address</td>
-                        <td>x_ship_to_city</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_city</td>
-                        <td>x_ship_to_state</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_state</td>
-                        <td>x_ship_to_zip</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_zip</td>
-                        <td>x_ship_to_country</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_country</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_phone</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_fax</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>x_email</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>
-                Note: You can add any more information with other parameter but it NOT be begin with “x_”.
-            </p>
-
+            <span class="badge badge-danger background-color-full-api">2</span>
+            Control string
+            <ul>
+                <li>
+                    $invoice– unique transaction ID at merchant
+                </li>
+                <li>
+                    $amount–payment amount
+                </li>
+                <li>
+                    $iduser – unique user ID at merchant
+                </li>
+                <li>
+                    $bank – the bank of the payment
+                </li>
+                <li>
+                    $cpf – user’s cpf
+                </li>
+                <li>
+                    $bdate – user’s date of birth
+                </li>
+                <li>
+                    $email – user’s email
+                </li>
+                <li>
+                    $zip – user’s zip / postal code
+                </li>
+                <li>
+                    $address – user’s postal address
+                </li>
+                <li>
+                    $city – user’s city
+                </li>
+                <li>
+                    $state – user’s state
+                </li>
+                <li>
+                    $secretKey – the secret key
+                </li>
+            </ul>    
+            <div class="alert alert-info">
+                $message = $invoice .‘V’ . $amount .‘I’ . $iduser .‘2’ . $bank .‘1’ . $cpf .‘H’ . $bdate .‘G’ . $email .‘Y’ . $zip .‘A’ . $address .‘P’ . $city .‘S’ . $state . ‘P’;<br>
+                strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $secretkey)))
+            </div>
 
             <h2 id="cc_validator_response">
                 Response
             </h2>
-            <p>The response can get the format that you want between “json”, “string” and “xml”. Is
-                recommended use “json” or “xml” for better data integrity.</p>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                        <th>Example </th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>response_code</td>
-                        <td>Transaction response code
-                            1-Approved
-                            2-Declined
-                            3-Error</td>
-                        <td>Integer</td>
-                        <td>1</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>response_subcode</td>
-                        <td>Subcode response (see response codes table)</td>
-                        <td>Integer</td>
-                        <td>1</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>response_reason_code</td>
-                        <td>(See response codes table)</td>
-                        <td>Integer</td>
-                        <td>1</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>response_reason_text</td>
-                        <td>Description of the transaction result</td>
-                        <td>string(200)</td>
-                        <td>“This transaction has been approved.”</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>approval_code</td>
-                        <td>Authrization code returned in auth_only, used after for capture_only</td>
-                        <td>string(50)</td>
-                        <td>“abc123”</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>AVS</td>
-                        <td>AVS of the transaction</td>
-                        <td>char(1)</td>
-                        <td>"P"</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>TransactionID</td>
-                        <td>Transaction ID provided by AstroPay</td>
-                        <td>Integer</td>
-                        <td>123456</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>r_unique_id</td>
-                        <td>Astropay user who is using the card (Numeric)</td>
-                        <td>integer</td>
-                        <td>321654</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_invoice_num</td>
-                        <td>Invoice number provided by merchant</td>
-                        <td>string(20)</td>
-                        <td>invoice-12345</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_description</td>
-                        <td>Description of the transaction provided by the merchant</td>
-                        <td>string(200)</td>
-                        <td>Transaction description</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_amount</td>
-                        <td>The amount of the transaction.</td>
-                        <td>decimal(10,2)</td>
-                        <td>20.6</td>
-                        <td><span class="badge badge-danger background-color-apc">1</span></td>
-                    </tr>
-                    <tr>
-                        <td>x_method</td>
-                        <td>Type of payment method</td>
-                        <td>Enum("CC")</td>
-                        <td>CC</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_type</td>
-                        <td>Transaction type (AUTH_CAPTURE,etc.)</td>
-                        <td>“AUTH_ONLY”, “CAPTURE_ONLY”, “AUTH_CAPTURE”, “REFUND”, “VOID”</td>
-                        <td>AUTH_CAPTURE</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_test_request</td>
-                        <td>Indicates whether the transaction is a test or not</td>
-                        <td>Enum("Y","N")</td>
-                        <td>"Y"</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>md5_hash</td>
-                        <td>Generated MD5 hash value that may be used to authenticate thetransaction response </td>
-                        <td>string</td>
-                        <td>e605sdfe5b4b269e38bc72a2s54fsga395</td>
-                        <td><span class="badge badge-danger background-color-apc">2</span></td>
-                    </tr>
-                    <tr>
-                        <td>cc_response</td>
-                        <td>The card code verification (CCV) response code
-                            M = Match
-                            N = No Match
-                            P = Not Processed
-                            S = Should have been present
-                            U = Issuer unable to process request</td>
-                        <td>"M","N","P","S","U"</td>
-                        <td>M</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>reserved40-68</td>
-                        <td>All other information that the merchant sends</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
             <p>
-                <span class="badge badge-danger background-color-apc">1</span>
-                Important: For safety reasons, it’s highly recommended compare the amount sent with the response amount
+                This function, if successful, returns the following json:
             </p>
 
-            <p>
-                <span class="badge badge-danger background-color-apc">2</span>
-                String control MD5 hash for return post
-            </p>
-            <ul>
-                <li>
-                    $x_login – Merchant login id credential. Provided by AstroPay.
-                </li>
-                <li>
-                    $transaction_id – Transaction ID provided by AstroPay.
-                </li>
-                <li>
-                    $amount – The amount of the transaction
-                </li>
-            </ul>
-            <p>The control string is calculated:
-                $control = md5($x_login . $transaction_id . $amount);
-            </p>
 
-            <h2 id="cc_validator_example">
-                Example
-            </h2>
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Request
-                    </h4>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li>
-                                <b>URL:</b> https://api.astropaycard.com/verif/validator 
-                            </li>
-                            <li>
-                                <b>Params: </b> x_login=abs35nnl4&x_tran_key=bfkd4jBe2&x_version=2.0&x_type=AUTH_CAPTURE&x_tes
-                                t_request=N&x_card_num=1145426000818586&x_card_code=1234&x_exp_date=05/2013
-                                &x_amount=12.03&x_unique_id=user9852&x_invoice_num=trans-123456</li>
-
-                        </ul>                   
-                    </div>
-                </div>
+            <div class="alert alert-info">
+                {
+                “status”:”0”,
+                “link”: “[link to redirect the user]”,
+                }
             </div>
+            <p>
+                On error the function returns the following:
+            </p>
 
-            <h3>
 
-            </h3>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Response
-                    </h4>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li>
-                                {"response_code":1, "response_subcode":1, "response_reason_code":1, "response_reason_text":"This transaction has been approved.", "approval_code":"jw30eF1", "AVS":"P", "TransactionID":544478495, "x_invoice_num":"81188952", "x_description":"", "x_amount":"9.44", "x_method":"CC", "x_type":"auth_capture", "x_cust_id":"", "x_first_name":"", "x_last_name":"", "x_company":"", "x_address":"", "x_city":"", "x_state":"", "x_zip":"", "x_country":"", "x_phone":"", "x_fax":"", "x_email":"", "x_ship_to_first_name":"", "x_ship_to_last_name":"", "x_ship_to_company":"", "x_ship_to_address":"", "x_ship_to_city":"", "x_ship_to_state":"", "x_ship_to_zip":"", "x_ship_to_country":"", "x_tax":"", "x_duty":"", "x_freight":"", "x_tax_exempt":"", "x_po_num":"", "x_test_request":"N", "md5_hash":"e605sdfe5b4b269e38bc72a2s54fsga395", "cc_response":"M", "reserved40":"", "reserved41":"", "reserved42":"", "reserved43":"", "reserved44":"", "reserved45":"", "reserved46":"", "reserved47":"", "reserved48":"", "reserved49":"", "reserved50":"", "reserved51":"", "reserved52":"", "reserved53":"", "reserved54":"", "reserved55":"", "reserved56":"", "reserved57":"", "reserved58":"", "reserved59":"", "reserved60":"", "reserved61":"", "reserved62":"", "reserved63":"", "reserved64":"", "reserved65":"", "reserved66":"", "reserved67":"", "reserved68":""}   </li>
-                        </ul>                   
-                    </div>
-                </div>
+            <div class="alert alert-info">
+                {
+                “status”:”1”,
+                “desc”:”[Description of the error]”
+                }
             </div>
         </div>
-        <!--/verif/validator-->
+        <!--new Invoice-->
 
-        <!--/verif/transtatus-->
+        <!--Get banks by country-->
         <div id="cc_transtatus_request">
             <h1 class="header block lighter color-apc blue">
-                /verif/transtatus
+                Function: Get banks by country
             </h1>
 
             <p>
-                This function will provide information about transactions in any moment. 
-                You may use this function to consult a single transaction status in a particular case.
+                This function returns a list of valid banks (those that are available to receive AstroPay payments) for the
+                requested country.
             </p>
 
             <p>
                 POST:
                 <br>
                 <i class="ace-icon fa fa-globe bigger-125 color-apc"></i>
-                <a href="#cc_urls">URL base</a> + /verif/transtatus
+                https://www.astropaycard.com/api_curl/apd/get_banks_by_country
             </p>
             Mandatory parameters
-
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -631,7 +448,450 @@ and open the template in the editor.
                         <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
-                        <td>x_tran_key</td>
+                        <td>x_trans_key</td>
+                        <td>String (length: 32 chars)</td>
+                        <td>Your merchant password in Astropay platform </td>
+                        <td>D23weF2f4g</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
+                    </tr>
+                    <tr>
+                        <td>country_code</td>
+                        <td>String(2 chars)</td>
+                        <td>The user’s country. ISO 3166-1 alpha-2 code</td>
+                        <td>BR</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <span class="badge badge-danger background-color-apc">1</span>
+                x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+            </p>
+
+            <h2 id="cc_validator_response">
+                Response
+            </h2>
+            <p>
+                This function, if successful, returns the followin "json":
+            </p>
+            <div class="alert alert-info">
+                [<br>
+                {
+                “code”: ”bank's id code”<br>
+                “name”: “bank's name”,<br>
+                "logo": "url pointing at bank's logo"
+                },<br>
+                {
+                “code”: ”bank's id code”<br>
+                “name”: “bank's name”,<br>
+                "logo": "url pointing at bank's logo"
+                }<br>
+                ]<br>
+            </div>
+        </div>
+        <!--get banks by country-->
+
+
+        <!--Return-->
+        <div id="cc_transtatus_request">
+            <h1 class="header block lighter color-apc blue">
+                Return
+            </h1>
+            <p>
+                The return is a redirection made to the merchant's return URL by POST protocol with the following
+                parameters:
+            </p>
+
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>result</td>
+                        <td>Transaction result (code 0 to 10)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_invoice</td>
+                        <td>Unique transaction ID number at the merchant</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_iduser</td>
+                        <td>User’s unique ID at the merchant / account number</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_description</td>
+                        <td>Transaction description</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_document</td>
+                        <td>Transaction description</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_bank</td>
+                        <td>Bank code. See <a href="#cc_x_confirm"> bank codes.</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_amount</td>
+                        <td>The amount of the payment</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_control</td>
+                        <td>Control string</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Return-->
+
+        <!--Confirmation-->
+        <div id="cc_transtatus_request">
+            <h1 class="header block lighter color-apc blue">
+                Confirmation
+            </h1>
+
+            <p>
+                A confirmation will be sent at every change in transaction's status to the merchant confirmation URL 
+                by POST protocol, with the following parameters:
+            </p>
+
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Description</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>result</td>
+                        <td>String (length: 32 chars)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_invoice</td>
+                        <td>Unique transaction ID number at the merchant</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_iduser</td>
+                        <td>User’s unique ID at the merchant / account number</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_description</td>
+                        <td>Transaction description</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_document</td>
+                        <td>Unique transaction ID number at AstroPay Direct</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_bank</td>
+                        <td>Bank code. See <a> bank codes</a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_payment_type</td>
+                        <td>The amount of the payment</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_bank_name</td>
+                        <td>The name of the bank</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_amount</td>
+                        <td>The amount of the payment</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_control</td>
+                        <td>Control signature</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!--Confirmation-->
+
+        <div class="well">
+            <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Note</h4>
+            Both the Return URL and the Confirmation URL are defined by default by the merchant when the
+            merchant registers with AstroPay. These parameters can be over-ridden at any time using the x_return
+            and x_confirmation parameters (however, these new urls are only active for that particular transaction,
+            following which we will revert to the default URLs previously provided).
+            <br>
+        </div>
+
+
+        <!--Payment status-->
+        <div id="cc_transtatus_request">
+            <h1 class="header block lighter color-apc blue">
+                Function: Payment status
+            </h1>
+
+            <p>
+                The status of a pending transaction can be verified at:
+            </p>
+
+            <p>
+                POST or GET:
+                <br>
+                <i class="ace-icon fa fa-globe bigger-125 color-apc"></i>
+                https://www.astropaycard.com/apd/webpaystatus
+            </p>
+            Parameters
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                        <th>Example </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>x_login</td>
+                        <td>String (length: 32 chars)</td>
+                        <td>Your merchant ID in Astropay platform</td>
+                        <td>AsGsd35Grf</td>
+                    </tr>
+                    <tr>
+                        <td>x_trans_key</td>
+                        <td>String (length: 32 chars)</td>
+                        <td>Your merchant password in Astropay platform </td>
+                        <td>D23weF2f4g</td>
+                    </tr>
+                    <tr>
+                        <td>x_country</td>
+                        <td>String(lenght: 2 chars)</td>
+                        <td>The ISO code of the country whose
+                            currency exchange rate you want to know</td>
+                        <td>BR</td>
+                    </tr>
+                    <tr>
+                        <td>x_amount</td>
+                        <td>Decimal(max 2 decimal numbers)</td>
+                        <td>The amount of USD you want to exchange. Optional. Default: 1</td>
+                        <td>199.85</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="cc_response" class=" block lighter">Response</h2>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Description</th>
+                        <th></th>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>result</td>
+                        <td>Transaction result. See <a href="#cc_transaction_result"> possible results </a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_iduser</td>
+                        <td>User’s unique ID at the merchant / account number</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_invoice</td>
+                        <td>Unique transaction ID number at the merchant</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_amount</td>
+                        <td>User’s unique ID at the merchant / account number</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>PT</td>
+                        <td>“0” for Production
+                            “1” for Test</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Sign</td>
+                        <td>control signature</td>
+                        <td><span class="badge badge-danger background-color-full-api">1</span></td>
+                    </tr>
+                    <tr>
+                        <td>x_document</td>
+                        <td>Unique transaction ID number at AstroPay</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_bank</td>
+                        <td>Bank code. See <a href="#cc_transaction_result"> possible results </a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_payment_type</td>
+                        <td>Payment type. See <a href="#cc_transaction_result"> payment types </a></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_bank_name</td>
+                        <td>Name of the bank</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>x_currency</td>
+                        <td>Transaction currency in ISO 4217</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--       
+            TODO:
+            "cc": {
+                        "payment_amount": "910.11",
+                        "payment_currency": "BRL",
+                        "statement_descriptor": "MERCADOPAGO*JJSHOUSE",
+                        "card_info": {
+                        "holder_name": "Brenda Bonfim de Araujo",
+                        "identification": {
+                        "number": "41701163802",
+                        "type": "CPF"
+                        },
+                        "last_four_digits": "8717",
+                        "payment_method": "visa"
+                        },
+                        "status": "rejected",
+                        "status_detail": "cc_rejected_call_for_authorize"
+                        }-->
+
+            <h2 id="cc_validator_response">
+                Response example
+            </h2>
+            <p>
+                The response is a json with the following format:
+            </p>
+            <div class="alert alert-info">
+                {
+                "result": "7",
+                "x_iduser": "1211386",
+                "x_invoice": "7844098210_426273110",
+                "x_amount": "875.02",
+                "PT": "0",
+                "Sign": "28F11DB2C7F4E3D1A1563C642AF8712EABE7E25540D36C8285887D3477107EA8",
+                "x_document": "4554231",
+                "x_bank": "VI",
+                "x_payment_type": "03",
+                "x_bank_name": "Visa",
+                "x_currency": "BRL",
+                "cc": {
+                "payment_amount": "910.11",
+                "payment_currency": "BRL",
+                "statement_descriptor": "JJSHOUSE",
+                "card_info": {
+                "holder_name": "Brenda Bonfim de Araujo",
+                "identification": {
+                "number": "41701163802",
+                "type": "CPF"
+                },
+                "last_four_digits": "8717",
+                "payment_method": "visa"
+                },
+                "status": "rejected",
+                "status_detail": "cc_rejected_call_for_authorize"
+                }
+                }
+
+            </div>
+        </div>
+        <!--payment status-->
+
+        <span class="badge badge-danger background-color-full-api">1</span>
+        Control signature for return, confirmation and payment status
+        <ul>
+            <li>
+                $x_login – AstroPay Direct Merchant ID
+            </li>
+            <li>
+                $result – transaction result (code 0 to 10; see section 4.1)
+            </li>
+            <li>
+                $x_amount – payment amount
+            </li>
+            <li>
+                $x_invoice – unique transaction ID at merchant
+            </li>
+            <li>
+                $secretkey – secret key
+            </li>
+        </ul>    
+        <div class="alert alert-info">
+            $message = $x_login.$result . $valor . $x_invoice;<br>
+            $control = strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $secretkey)));
+        </div>
+
+        <!--Currency exchange-->
+        <div id="cc_transtatus_request">
+            <h1 class="header block lighter color-apc blue">
+                Function: Currency exchange
+            </h1>
+
+            <p>
+                The currency exchange rate can be verified at:
+            </p>
+
+            <p>
+                POST or GET:
+                <br>
+                <i class="ace-icon fa fa-globe bigger-125 color-apc"></i>
+                https://www.astropaycard.com/apd/webcurrencyexchange
+            </p>
+            Parameters
+            TODO
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                        <th>Example </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>x_login</td>
+                        <td>String (length: 32 chars)</td>
+                        <td>Your merchant ID in Astropay platform</td>
+                        <td>AsGsd35Grf</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
+                    </tr>
+                    <tr>
+                        <td>x_trans_key</td>
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant password in Astropay platform </td>
                         <td>D23weF2f4g</td>
@@ -644,45 +904,6 @@ and open the template in the editor.
                         <td>dsa3jg4638n</td>
                         <td></td>
                     </tr>
-                    <tr>
-                        <td>x_test_request</td>
-                        <td>Char(1)</td>
-                        <td>Selects if the transaction is a test</td>
-                        <td>Y</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_type</td>
-                        <td>Integer</td>
-                        <td>0: for simple information
-                            1: for detailed information (see response section)</td>
-                        <td>Y</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            Optional parameters
-
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th>Default value</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>x_delim_char</td>
-                        <td>String (length: 25 chars)</td>
-                        <td>Response delimiting char between fields when the x_response_format is “string”</td>
-                        <td>@</td>
-                        <td>|</td>
-                    </tr>
                 </tbody>
             </table>
 
@@ -691,542 +912,86 @@ and open the template in the editor.
                 x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
             </p>
 
-            <h2 id="cc_transtatus_response">
-                Response
-            </h2>
-            <p>The response can get the format that you want between “json”, “string” and “xml”. Is
-                recommended use “json” or “xml” for better data integrity.</p>
+            <h2 id="cc_response" class=" block lighter">Response</h2>
+            <p>
+                The response is a string with the price.
+                If we don't have the currency for that country we will return 0.
+            </p>
+
+        </div>
+        <!--payment status-->
+
+        <!--Payment method codes-->
+        <div id="cc_transtatus_request">
+            <h1 class="header block lighter color-apc blue">
+                Payment method codes
+            </h1>
+            TODO
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th>Field</th>
+                        <th>Code</th>
                         <th>Description</th>
-                        <th>Type</th>
-                        <th>Example </th>
-                        <th></th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <tr>
-                        <td>code</td>
-                        <td>Transaction response code
-                            1-Approved
-                            2-Declined
-                            3-Error</td>
-                        <td>Integer</td>
-                        <td>1</td>
-                        <td></td>
+                        <td>6</td>
+                        <td>Transaction not found in the system</td>
                     </tr>
                     <tr>
-                        <td>subcode</td>
-                        <td>Subcode response (see response codes table)</td>
-                        <td>Integer</td>
-                        <td>1</td>
-                        <td></td>
+                        <td>7</td>
+                        <td>Pending transaction awaiting approval</td>
                     </tr>
                     <tr>
-                        <td>reason_code</td>
-                        <td>(See response codes table)</td>
-                        <td>Integer</td>
-                        <td>1</td>
-                        <td></td>
+                        <td>8</td>
+                        <td>Operation rejected by the bank</td>
                     </tr>
                     <tr>
-                        <td>reason_text</td>
-                        <td>Description of the transaction result</td>
-                        <td>string(200)</td>
-                        <td>“This transaction has been approved.”</td>
-                        <td></td>
+                        <td>9</td>
+                        <td>Amount Paid. Transaction successfully concluded</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Payment method codes-->
+
+        <!--Payment types-->
+        <div id="cc_transtatus_request">
+            <h1 class="header block lighter color-apc blue">
+                Payment types
+            </h1>
+            TODO
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>6</td>
+                        <td>Transaction not found in the system</td>
                     </tr>
                     <tr>
-                        <td>txn_date</td>
-                        <td>Date of the transaction</td>
-                        <td>string(20)</td>
-                        <td>“2013-03-01 21:26:31”</td>
-                        <td></td>
+                        <td>7</td>
+                        <td>Pending transaction awaiting approval</td>
                     </tr>
                     <tr>
-                        <td>txn_type</td>
-                        <td>The transaction type<</td>
-                        <td>“AUTH_ONLY”, “CAPTURE_ONLY”, “AUTH_CAPTURE”, “REFUND”, “VOID”</td>
-                        <td>"auth_capture"</td>
-                        <td></td>
+                        <td>8</td>
+                        <td>Operation rejected by the bank</td>
                     </tr>
                     <tr>
-                        <td>x_amount</td>
-                        <td>Transaction amount</td>
-                        <td>decimal(10,2)</td>
-                        <td>“20.36”</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>TransactionID</td>
-                        <td>AstroPay transaction unique ID</td>
-                        <td>integer</td>
-                        <td>122754</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_invoice_num</td>
-                        <td>Merchant transaction unique ID</td>
-                        <td>integer</td>
-                        <td>12323456</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>x_description</td>
-                        <td>Description of the transaction provided by the merchant</td>
-                        <td>string(200)</td>
-                        <td>Transaction description</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>r_result</td>
-                        <td>Transaction result</td>
-                        <td>String(50)</td>
-                        <td>"Approved"</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>r_authorization_code</td>
-                        <td>Authorization code</td>
-                        <td>String(50)</td>
-                        <td>"abc1234"</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>process_status</td>
-                        <td>Transaction status</td>
-                        <td>String(50)</td>
-                        <td>Settled</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>md5hash</td>
-                        <td>Response MD5 hash. May be used to authenticate the transaction response</td>
-                        <td>String</td>
-                        <td>dsgtdfy515arwgfd</td>
-                        <td>1</td>
+                        <td>9</td>
+                        <td>Amount Paid. Transaction successfully concluded</td>
                     </tr>
                 </tbody>
             </table>
 
-            <p>
-                <span class="badge badge-danger background-color-apc">1</span>
-                String control MD5 hash for return post
-            </p>
-            <ul>
-                <li>
-                    $x_login – Merchant login id credential. Provided by AstroPay.
-                </li>
-                <li>
-                    $transaction_id – Transaction ID provided by AstroPay.
-                </li>
-                <li>
-                    $amount – The amount of the transaction
-                </li>
-            </ul>
-            <p>The control string is calculated:
-                $control = md5($x_login . $transaction_id . $amount);
-            </p>
-            <h2 id="cc_transtatus_example">
-                Example
-            </h2>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Request
-                    </h4>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li>
-                                <b>URL:</b> https://api.astropaycard.com/verif/transtatus 
-                            </li>
-                            <li>
-                                <b>Params: </b> x_login=abs35nnl4&x_tran_key=bfkd4jBe2&x_type=1&x_test_request=N&x_invoice_num=565123456</li>
-                        </ul>                   
-                    </div>
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Reponse
-                    </h4>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        {"code":1,"subcode":1,"reason_code":1, "reason_text":"This transaction has been approved.", "txn_date":"2014-12-13 11:49:30", 
-                        "txn_type":"auth_capture", "x_amount":"100.00", "TransactionID":545678029, "x_invoice_num":"7873453427", "x_description":"payment description information", 
-                        "r_result":"Approved", "r_authorization_code":"e4df4f0", "process_status":"Settled", "md5hash":"4d512fd554sd54s54f4a84qd9dda8d"}           
-                    </div>
-                </div>
-            </div>
-
         </div>
-        <!--/verif/transtatus-->
-
-        <!-- SDK -->
-        <div>
-            <h1 class="header block lighter color-apc blue">
-                SDK
-            </h1>
-
-            <p>The SDK is an abstraction of the AstroPay Card API. 
-                It will help you with the integration and provides an homogeneous interface to ensure an correct integration.</p>
-            <p>The SDK provided by AstroPay contains:</p>
-            <ul>
-                <li>
-                    <a href="/Developers.AstropayCard/html/docs/libs/AstroPayCard.class.php" download>AstroPayCard.class.php</a> (AstroPay Card class)
-                </li>
-                <li>
-                    <a href="/Developers.AstropayCard/html/docs/libs/sample.php" download>Sample.php</a>
-                </li>
-            </ul>
-
-            <p>AstroPayCard class provide the following methods:</p>
-            <ul>
-                <li>
-                    auth_transaction (equivalent AUTH_ONLY transaction type)
-                </li>
-                <li>
-                    capture_transaction (equivalent CAPTURE_ONLY transaction type)
-                </li>
-                <li>
-                    auth_capture_transaction (equivalent AUTH_CAPTURE transaction type)
-                </li>
-                <li>
-                    check_transaction_status (equivalent to function /verif/transtatus)
-                </li>
-                <li>
-                    refund_transaction (equivalent REFUND transaction type)
-                </li>
-                <li>
-                    void_transaction (equivalent VOID transaction type)
-                </li>
-            </ul>
-
-            <h2 class="lighter color-apc" id="cc_auth_transaction"> auth_transaction, capture_transaction & auth_capture_transaction</h2>
-            Params:
-            <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_card_num </div>
-                    <div class="profile-info-value">AstroPay Card number</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_card_code </div>
-                    <div class="profile-info-value">AstroPay Card CVV</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_exp_date </div>
-                    <div class="profile-info-value">AstroPay Card expiration date</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_amount </div>
-                    <div class="profile-info-value">Transaction amount</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_unique_id </div>
-                    <div class="profile-info-value">Identifier of users in the merchant system</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_invoice_num </div>
-                    <div class="profile-info-value">The invoice number generated by the Merchant</div>
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Auth first, and capture after - Usage example
-                    </h4>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <p>
-                            $astropay = new AstroPayCard();<br>
-                            //NOTE: Use json_decode only if the x_response_formatconfigparam is set in “json”
-                        </p>
-                        <p>
-                            //Authorize transaction<br>
-                            $response = json_decode($astropay->auth_transaction($x_card_num, $x_card_code, $x_exp_date, $x_amount, $x_unique_id, $x_invoice_num));<br>
-                            $approval_code = $response->approval_code;<br>
-                        </p>
-                        <p>
-                            //Capture transaction using the approval_code returned by authorization<br>
-                            $final_response = json_decode($astropay->capture_transaction($approval_code, $x_card_num, $x_card_code, $x_exp_date, $x_amount, $x_unique_id, $x_invoice_num));<br>
-                        </p>          
-                    </div>
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Auth and capture - Usage example
-                    </h4>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <p>
-                            $astropay = new AstroPayCard();<br>
-                        </p>
-                        <p>
-                            //Auth & capture transaction<br>
-                            $response = $astropay->auth_capture_transaction($x_card_num, $x_card_code, $x_exp_date, $x_amount, $x_unique_id, $x_invoice_num);<br>
-                        </p> 
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="lighter color-apc">
-                Response 
-            </h3>
-            <div class="go" data-div="cc_validator_response">
-                <a href="#"> see /verif/validator response </a>
-            </div>
-
-            <h2 class="lighter color-apc" id="cc_check_transaction_status"> check_transaction_status</h2>
-            Params:
-            <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_invoice_num </div>
-                    <div class="profile-info-value">The invoice number generated by the Merchant in the original transaction</div>
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Check status transaction - Usage example
-                    </h4>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <p>
-                            $astropay = new AstroPayCard();<br>
-                        </p>
-                        <p>
-                            //Check transaction status<br>
-                            $response = $astropay->check_transaction_status($x_invoice_num);<br>
-                        </p>         
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="lighter color-apc">
-                Response 
-            </h3>
-            <a href="#cc_transtatus_response"> see /verif/transtatus response </a>
+        <!--Payment types-->
 
 
-            <h2 class="lighter color-apc" id="cc_refund_transaction"> refund_transaction & void_transaction </h2>
-            Params:
-            <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> transaction_id </div>
-                    <div class="profile-info-value">The TransactionID param returned by AstroPay in the original transaction</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_card_num </div>
-                    <div class="profile-info-value">AstroPay Card number</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_card_code </div>
-                    <div class="profile-info-value">AstroPay Card CVV</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_exp_date </div>
-                    <div class="profile-info-value">AstroPay Card expiration date</div>
-                </div>
-                <div class="profile-info-row">
-                    <div class="profile-info-name color-apc"> x_amount </div>
-                    <div class="profile-info-value">Transaction amount</div>
-                </div>
-
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Refund transaction - Usage example
-                    </h4>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <p>
-                            $astropay = new AstroPayCard();<br>
-                        </p>
-                        <p>
-                            //Refund<br>
-                            $response = $astropay->refund_transaction($transaction_id, $x_card_num, $x_card_code, $x_exp_date, $x_amount);<br>
-                        </p>           
-                    </div>
-                </div>
-            </div>
-
-            <div class="widget-box">
-                <div class="widget-header widget-header-flat">
-                    <h4 class="smaller">
-                        <i class="ace-icon fa fa-code"></i>
-                        Void transaction - Usage example
-                    </h4>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <p>
-                            $astropay = new AstroPayCard();<br>
-                        </p>
-                        <p>
-                            //Void<br>
-                            $response = $astropay->void_transaction($transaction_id, $x_card_num, $x_card_code, $x_exp_date, $x_amount);<br>
-                        </p>           
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="lighter color-apc">
-                Response 
-            </h3>
-            <a href="#cc_validator_response"> see /verif/validator response </a>
-
-            <h2 class="lighter color-apc" id="cc_download_sdk">Download SDK also for:</h2>
-            <ul>
-                <li>
-                    <a href="/Developers.AstropayCard/html/docs/libs/AstroPay_php_Examples.zip" download>Php</a>
-                </li>
-                <li>
-                    <a href="/Developers.AstropayCard/html/docs/libs/AstroPay_java_Examples.zip" download>Java</a>
-                </li>
-                <li>
-                    <a href="/Developers.AstropayCard/html/docs/libs/AstroPay_csharp_Examples.zip" download>C#</a>
-                </li>
-                <li>
-                    <a href="/Developers.AstropayCard/html/docs/libs/ruby_integration_classes.zip" download>Ruby</a>
-                </li>
-            </ul>
-        </div>
-        <!-- SDK -->
-        
-        <!-- Test data -->
-        <div id="cc_test_data">
-        <h2 class="color-apc">Test data</h2>
-        
-        <div class="col-xs-6 col-sm-3 pricing-box">
-            <div class="widget-box ">
-                <div class="widget-header ">
-                    <h5 class="widget-title bigger lighter"> <b>$25 AstroPay Card</b></h5>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li><b>Number:</b> 1175000000000025</li>
-                            <li><b>Security code (CVV):</b> 1234</li>
-                            <li><b>Expiration date:</b> 05/2015</li>
-                            <li><b>Value:</b> $25</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-6 col-sm-3 pricing-box">
-            <div class="widget-box color-rounders">
-                <div class="widget-header ">
-                    <h5 class="widget-title bigger lighter"> <b>$100 AstroPay Card</b></h5>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li><b>Number:</b> 1175000000000100</li>
-                            <li><b>Security code (CVV):</b> 1234</li>
-                            <li><b>Expiration date:</b> 05/2015</li>
-                            <li><b>Value:</b> $100</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-6 col-sm-3 pricing-box">
-            <div class="widget-box">
-                <div class="widget-header ">
-                    <h5 class="widget-title bigger lighter"> <b>$500 AstroPay Card</b></h5>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li><b>Number:</b> 1175000000000500</li>
-                            <li><b>Security code (CVV):</b> 1234</li>
-                            <li><b>Expiration date:</b> 05/2015</li>
-                            <li><b>Value:</b> $500</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-xs-6 col-sm-3 pricing-box">
-            <div class="widget-box ">
-                <div class="widget-header ">
-                    <h5 class="widget-title bigger lighter"> <b>Invalid AstroPay Card</b></h5>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <ul>
-                            <li><b>Number:</b> 1175000000000025</li>
-                            <li><b>Security code (CVV):</b> 1254</li>
-                            <li><b>Expiration date:</b> 05/2015</li>
-                            <li><b>Value:</b> $25</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        </div>
-        <!-- Test data -->
-
-        <!-- DOWNLOADS-->
-        <!--        <div class="col-sm-6">
-                    <div class="page-header">
-                        <h1 class="color-apc">
-                            Astropay Cards
-                        </h1>
-                    </div> /.page-header 
-        
-        
-                    <a class="dd-item" data-id="1"  href="../html/docs/API_APC_v3.0.pdf" target="_blank">
-                        <div class="dd-handle">
-                            API documentation
-                            <i class="pull-right bigger-130 ace-icon fa fa-cloud-download color-apc"></i>
-                        </div>
-                    </a>
-        
-        
-                    <a class="dd-item" data-id="1"  href="../html/docs/Error_codes_table.pdf" target="_blank">
-                        <div class="dd-handle">
-                            Error codes table
-                            <i class="pull-right bigger-130 ace-icon fa fa-cloud-download color-apc"></i>
-                        </div>
-                    </a>
-                </div>-->
     </body>
 </html>
