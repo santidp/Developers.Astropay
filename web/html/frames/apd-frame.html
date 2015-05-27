@@ -8,16 +8,16 @@
 
         <div class="page-header">
             <h1 class="color-apc">
-                Astropay Direct
+                Astropay Streamline
             </h1>
         </div><!-- /.page-header -->
 
         <h1 id="cc_introduction" class="header block lighter color-apc blue">Introduction</h1>
         <p>
             The AstroPay Direct Streamline API is used to integrate payments via Credit Card, Online Bank
-            Payment and Cash Payment Methods (eg Boleto Bancario in Brazil and OXXO in Mexico).
+            Payment and Cash Payment Methods (e.g. Boleto Bancario in Brazil and OXXO in Mexico).
             Customers do not need to visit an AstroPay page to enter any details, so the payment process is
-            “streamlined”.
+            “Streamlined”.
         </p>
         <p class="col-sm-10">
             However, in order for Streamline to work, AstroPay needs the merchant to collect some
@@ -117,7 +117,7 @@
 
 
         <!--new invoice-->
-        <div id="cc_validator_request">
+        <div id="cc_newinvoice">
             <h1 class="header block lighter color-apc blue">
                 Function: New invoice
             </h1>
@@ -378,11 +378,11 @@
                 </li>
             </ul>    
             <div class="alert alert-info">
-                $message = $invoice .‘V’ . $amount .‘I’ . $iduser .‘2’ . $bank .‘1’ . $cpf .‘H’ . $bdate .‘G’ . $email .‘Y’ . $zip .‘A’ . $address .‘P’ . $city .‘S’ . $state . ‘P’;<br>
+                $message = $invoice .'V' . $amount .'I' . $iduser .'2' . $bank .'1' . $cpf .'H' . $bdate .'G' . $email .'Y' . $zip .'A' . $address .'P' . $city .'S' . $state . 'P';<br>
                 strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $secretkey)))
             </div>
 
-            <h2 id="cc_validator_response">
+            <h2 >
                 Response
             </h2>
             <p>
@@ -411,7 +411,7 @@
         <!--new Invoice-->
 
         <!--Get banks by country-->
-        <div id="cc_transtatus_request">
+        <div id="cc_getbanks">
             <h1 class="header block lighter color-apc blue">
                 Function: Get banks by country
             </h1>
@@ -494,7 +494,7 @@
 
 
         <!--Return-->
-        <div id="cc_transtatus_request">
+        <div id="cc_x_confirm">
             <h1 class="header block lighter color-apc blue">
                 Return
             </h1>
@@ -540,7 +540,7 @@
                     </tr>
                     <tr>
                         <td>x_bank</td>
-                        <td>Bank code. See <a href="#cc_x_confirm"> bank codes.</a></td>
+                        <td>Bank code. See <a href="#cc_pm_codes"> bank codes.</a></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -646,7 +646,7 @@
 
 
         <!--Payment status-->
-        <div id="cc_transtatus_request">
+        <div id="cc_paymentstatus">
             <h1 class="header block lighter color-apc blue">
                 Function: Payment status
             </h1>
@@ -669,6 +669,7 @@
                         <th>Format</th>
                         <th>Description</th>
                         <th>Example </th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -678,25 +679,21 @@
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant ID in Astropay platform</td>
                         <td>AsGsd35Grf</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
                         <td>x_trans_key</td>
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant password in Astropay platform </td>
                         <td>D23weF2f4g</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
-                        <td>x_country</td>
-                        <td>String(lenght: 2 chars)</td>
-                        <td>The ISO code of the country whose
-                            currency exchange rate you want to know</td>
-                        <td>BR</td>
-                    </tr>
-                    <tr>
-                        <td>x_amount</td>
-                        <td>Decimal(max 2 decimal numbers)</td>
-                        <td>The amount of USD you want to exchange. Optional. Default: 1</td>
-                        <td>199.85</td>
+                        <td>x_invoice_num</td>
+                        <td>String(50)</td>
+                        <td>Unique identifier of Merchant transaction, (Inserted before in function validator)</td>
+                        <td>dsa3jg4638n</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
@@ -749,12 +746,12 @@
                     </tr>
                     <tr>
                         <td>x_bank</td>
-                        <td>Bank code. See <a href="#cc_transaction_result"> possible results </a></td>
+                        <td>Bank code. See <a href="#cc_pm_codes"> possible codes </a></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td>x_payment_type</td>
-                        <td>Payment type. See <a href="#cc_transaction_result"> payment types </a></td>
+                        <td>Payment type. See <a href="#cc_payment_types"> payment types </a></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -767,26 +764,13 @@
                         <td>Transaction currency in ISO 4217</td>
                         <td></td>
                     </tr>
+                    <tr>
+                        <td>cc</td>
+                        <td>Merchant info</td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
-            <!--       
-            TODO:
-            "cc": {
-                        "payment_amount": "910.11",
-                        "payment_currency": "BRL",
-                        "statement_descriptor": "MERCADOPAGO*JJSHOUSE",
-                        "card_info": {
-                        "holder_name": "Brenda Bonfim de Araujo",
-                        "identification": {
-                        "number": "41701163802",
-                        "type": "CPF"
-                        },
-                        "last_four_digits": "8717",
-                        "payment_method": "visa"
-                        },
-                        "status": "rejected",
-                        "status_detail": "cc_rejected_call_for_authorize"
-                        }-->
 
             <h2 id="cc_validator_response">
                 Response example
@@ -796,9 +780,9 @@
             </p>
             <div class="alert alert-info">
                 {
-                "result": "7",
+                "result": "8",
                 "x_iduser": "1211386",
-                "x_invoice": "7844098210_426273110",
+                "x_invoice": "7844098210",
                 "x_amount": "875.02",
                 "PT": "0",
                 "Sign": "28F11DB2C7F4E3D1A1563C642AF8712EABE7E25540D36C8285887D3477107EA8",
@@ -814,14 +798,14 @@
                 "card_info": {
                 "holder_name": "Brenda Bonfim de Araujo",
                 "identification": {
-                "number": "41701163802",
+                "number": "41335254532",
                 "type": "CPF"
                 },
-                "last_four_digits": "8717",
+                "last_four_digits": "8457",
                 "payment_method": "visa"
                 },
                 "status": "rejected",
-                "status_detail": "cc_rejected_call_for_authorize"
+                "status_detail": "cc_rejected_insufficient_amount"
                 }
                 }
 
@@ -854,7 +838,7 @@
         </div>
 
         <!--Currency exchange-->
-        <div id="cc_transtatus_request">
+        <div id="cc_currencyexchange">
             <h1 class="header block lighter color-apc blue">
                 Function: Currency exchange
             </h1>
@@ -870,7 +854,7 @@
                 https://www.astropaycard.com/apd/webcurrencyexchange
             </p>
             Parameters
-            TODO
+
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -878,7 +862,6 @@
                         <th>Format</th>
                         <th>Description</th>
                         <th>Example </th>
-                        <th></th>
                     </tr>
                 </thead>
 
@@ -888,24 +871,30 @@
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant ID in Astropay platform</td>
                         <td>AsGsd35Grf</td>
-                        <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
                         <td>x_trans_key</td>
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant password in Astropay platform </td>
                         <td>D23weF2f4g</td>
-                        <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
-                        <td>x_invoice_num</td>
-                        <td>String(50)</td>
-                        <td>Unique identifier of Merchant transaction, (Inserted before in function validator)</td>
-                        <td>dsa3jg4638n</td>
-                        <td></td>
+                        <td>x_country</td>
+                        <td>String(lenght: 2 chars)</td>
+                        <td>The ISO code of the country whose
+                            currency exchange rate you want to know</td>
+                        <td>BR</td>
+                    </tr>
+                    <tr>
+                        <td>x_amount</td>
+                        <td>Decimal(max 2 decimal numbers)</td>
+                        <td>The amount of USD you want to exchange. Optional. Default: 1</td>
+                        <td>199.85</td>
                     </tr>
                 </tbody>
             </table>
+
+
 
             <p>
                 <span class="badge badge-danger background-color-apc">1</span>
@@ -921,12 +910,11 @@
         </div>
         <!--payment status-->
 
-        <!--Payment method codes-->
-        <div id="cc_transtatus_request">
+        <!--Transaction results-->
+        <div id="cc_transaction_result">
             <h1 class="header block lighter color-apc blue">
-                Payment method codes
+                Transaction Results
             </h1>
-            TODO
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -954,14 +942,17 @@
                 </tbody>
             </table>
         </div>
-        <!--Payment method codes-->
+        <!--Transaction results-->
 
-        <!--Payment types-->
-        <div id="cc_transtatus_request">
+        <!--Payment method codes-->
+        <div id="cc_pm_codes">
             <h1 class="header block lighter color-apc blue">
-                Payment types
+                Payment method codes
             </h1>
-            TODO
+
+            <h4 class="header block lighter color-apc blue">
+                Brasil
+            </h4>
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -971,23 +962,382 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>6</td>
-                        <td>Transaction not found in the system</td>
+                        <td>BL</td>
+                        <td>Boleto</td>
                     </tr>
                     <tr>
-                        <td>7</td>
-                        <td>Pending transaction awaiting approval</td>
+                        <td>I</td>
+                        <td>Itau</td>
                     </tr>
                     <tr>
-                        <td>8</td>
-                        <td>Operation rejected by the bank</td>
+                        <td>B</td>
+                        <td>Bradesco</td>
                     </tr>
                     <tr>
-                        <td>9</td>
-                        <td>Amount Paid. Transaction successfully concluded</td>
+                        <td>BB</td>
+                        <td>Banco do Brasil</td>
+                    </tr>
+                    <tr>
+                        <td>H</td>
+                        <td>HSBC</td>
+                    </tr>
+                    <tr>
+                        <td>SB</td>
+                        <td>Santander</td>
+                    </tr>
+                    <tr>
+                        <td>CA</td>
+                        <td>Caixa</td>
+                    </tr>
+                    <tr>
+                        <td>VI</td>
+                        <td>Visa</td>
+                    </tr>
+                    <tr>
+                        <td>MC</td>
+                        <td>MasterCard</td>
+                    </tr>
+                    <tr>
+                        <td>EL</td>
+                        <td>Elo</td>
+                    </tr>
+                    <tr>
+                        <td>DC</td>
+                        <td>Diners Club</td>
+                    </tr>
+                    <tr>
+                        <td>HI</td>
+                        <td>Hipercard</td>
+                    </tr>
+                    <tr>
+                        <td>ML</td>
+                        <td>Cartao MercadoLivre</td>
+                    </tr>
+                    <tr>
+                        <td>AE</td>
+                        <td>Amercian Express</td>
                     </tr>
                 </tbody>
             </table>
+
+
+            <h4 class="header block lighter color-apc blue">
+                Argentina
+            </h4>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>SI</td>
+                        <td>Santander Rio</td>
+                    </tr>
+                    <tr>
+                        <td>PF</td>
+                        <td>Pago Fácil</td>
+                    </tr>
+
+                    <tr>
+                        <td>DM</td>
+                        <td>Dinero Mail (Cash)</td>
+                    </tr>
+                    <tr>
+                        <td>DD</td>
+                        <td>Dinero Mail (Transfer)</td>
+                    </tr>
+                    <tr>
+                        <td>RP</td>
+                        <td>Rapi Pago</td>
+                    </tr>
+                    <tr>
+                        <td>NJ</td>
+                        <td>Tarjeta Naranja</td>
+                    </tr>
+                    <tr>
+                        <td>TS</td>
+                        <td>Tarjeta Shopping</td>
+                    </tr>
+                    <tr>
+                        <td>NT</td>
+                        <td>Nativa</td>
+                    </tr>
+                    <tr>
+                        <td>CS</td>
+                        <td>Cencosud</td>
+                    </tr>
+                    <tr>
+                        <td>CL</td>
+                        <td>Cabal</td>
+                    </tr>
+                    <tr>
+                        <td>AG</td>
+                        <td>Argencard</td>
+                    </tr>
+                    <tr>
+                        <td>VD</td>
+                        <td>Visa Debit</td>
+                    </tr>
+                    <tr>
+                        <td>MD</td>
+                        <td>MasterCard Debit</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <h4 class="header block lighter color-apc blue">
+                Chile
+            </h4>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>WP</td>
+                        <td>WebPay</td>
+                    </tr>
+                    <tr>
+                        <td>BX</td>
+                        <td>Banco de Chile</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 class="header block lighter color-apc blue">
+                China
+            </h4>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EE</td>
+                        <td>ePayLinks</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 class="header block lighter color-apc blue">
+                Colombia
+            </h4>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EY</td>
+                        <td>Efecty</td>
+                    </tr>
+                    <tr>
+                        <td>DA</td>
+                        <td>Davivienda</td>
+                    </tr>
+                    <tr>
+                        <td>PC</td>
+                        <td>PSE</td>
+                    </tr>
+                    <tr>
+                        <td>VI</td>
+                        <td>Visa</td>
+                    </tr>
+                    <tr>
+                        <td>MC</td>
+                        <td>MasterCard</td>
+                    </tr>
+                    <tr>
+                        <td>VD</td>
+                        <td>Visa Debit</td>
+                    </tr>
+                    <tr>
+                        <td>MD</td>
+                        <td>MasterCard Debit</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 class="header block lighter color-apc blue">
+                Peru
+            </h4>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PA</td>
+                        <td>BCP (via Latin American Payments)</td>
+                    </tr>
+                    <tr>
+                        <td>IB</td>
+                        <td>InterBank</td>
+                    </tr>
+                    <tr>
+                        <td>BP</td>
+                        <td>BBVA</td>
+                    </tr>
+                    <tr>
+                        <td>EF</td>
+                        <td>Pago Efectivo</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <h4 class="header block lighter color-apc blue">
+                Mexico
+            </h4>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>OX</td>
+                        <td>OXXO</td>
+                    </tr>
+                    <tr>
+                        <td>BV</td>
+                        <td>BBVA Bancomer</td>
+                    </tr>
+                    <tr>
+                        <td>BM</td>
+                        <td>Banamex</td>
+                    </tr>
+                    <tr>
+                        <td>SM</td>
+                        <td>Santander</td>
+                    </tr>
+                    <tr>
+                        <td>VI</td>
+                        <td>Visa</td>
+                    </tr>
+                    <tr>
+                        <td>MC</td>
+                        <td>MasterCard</td>
+                    </tr>
+                    <tr>
+                        <td>VD</td>
+                        <td>Visa Debit</td>
+                    </tr>
+                    <tr>
+                        <td>MD</td>
+                        <td>MasterCard Debit</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 class="header block lighter color-apc blue">
+                Uruguay
+            </h4>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>RE</td>
+                        <td>Red Pagos</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!--Payment method codes-->
+
+
+        <!--Transaction results-->
+        <div id="cc_payment_types">
+            <h2 class="header block lighter color-apc blue">
+                Payment types
+            </h2>
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>00</td>
+                        <td>Bank Transfer</td>
+                    </tr>
+                    <tr>
+                        <td>01</td>
+                        <td>Bank Transfer</td>
+                    </tr>
+                    <tr>
+                        <td>02</td>
+                        <td>Boleto / Invoice</td>
+                    </tr>
+                    <tr>
+                        <td>03</td>
+                        <td>Debit or Credit Card</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Transaction results-->
+
+
+        <div id="cc_sdk">
+            <h1 class="header block lighter color-apc blue">
+                SDK
+            </h1>
+            <h2 class="lighter color-apc blue">
+                <b>Streamline class for php</b>
+            </h2>
+
+            <a class="dd-item col-sm-2" data-id="1"  href="../html/docs/libs/AstroPayStreamline.class.php" target="_blank">
+                <div class="dd-handle" >
+                    Download
+                    <i class="pull-right bigger-130 ace-icon fa fa-cloud-download color-apd"></i>
+                </div>
+            </a>
+
+            <br>
+            <br>
+            <br>
+            The invoke should be made as follows:
+            <div class="alert alert-info">
+                $aps = new AstroPayStreamline();<br>
+                $response = $aps->newinvoice('invoice1', 23, 'VI', 'BR', 'user123', '012345678', 'User Name', 'user@gmail.com');<br>
+                $decoded_response = json_decode($response);<br>
+                if($decoded_response->status==0){<br>
+                $url = $decoded_response->link;<br>
+                header("Location: $url");<br>
+                die();<br>
+                }else{<br>
+                //manage error here<br>
+                $error = $decoded_response->desc;<br>
+                echo $error;<br>
+                }
+            </div>
 
         </div>
         <!--Payment types-->

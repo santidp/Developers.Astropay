@@ -78,7 +78,7 @@
                 <div class="sidebar-shortcuts" id="sidebar-shortcuts">
                     <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                         <button class="btn background-color-apd" onclick="navigateAPD()">
-                            Direct
+                            Streamline
                         </button>
 
                         <button class="btn background-color-full-api" onclick="navigateFullAPI()">
@@ -96,7 +96,7 @@
                     </div>
                 </div><!-- /.sidebar-shortcuts -->
 
-                <!--  apd-menu  -->
+                <!--  streamline-menu  -->
                 <ul class="nav nav-list" id="apd-menu">                    
                     <li class="" data-div="cc_considerations">
                         <a href="#" class="dropdown-toggle">
@@ -154,157 +154,52 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li class="" id="cc_validator">
-                        <a href="#" class="dropdown-toggle">
-                            <i class=""></i>
-                            <span class="menu-text"> Function: validator </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-
-                        <b class="arrow"></b>
-
-                        <ul class="submenu">
-                            <li class="go" data-div="cc_validator_request">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Request
-                                </a>
-                            </li>
-
-                            <li class="go" data-div="cc_validator_response">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Response
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="go" data-div="cc_validator_example">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Example
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="" id="cc_validator">
-                        <a href="#" class="dropdown-toggle">
-                            <i class=""></i>
-                            <span class="menu-text"> Function: transtatus </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-
-                        <b class="arrow"></b>
-
-                        <ul class="submenu">
-                            <li class="go" data-div="cc_transtatus_request">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Request
-                                </a>
-                            </li>
-
-                            <li class="go" data-div="cc_transtatus_response">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Response
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="go" data-div="cc_transtatus_example">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Example
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="" id="cc_validator">
-                        <a href="#" class="dropdown-toggle">
-                            <i class=""></i>
-                            <span class="menu-text"> SDK </span>
-
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-
-                        <b class="arrow"></b>
-
-                        <ul class="submenu">
-                            <li class="go" data-div="cc_auth_transaction">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    auth_transaction
-                                </a>
-                            </li>
-
-                            <li class="go" data-div="cc_auth_transaction">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    capture_transaction
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="go" data-div="cc_auth_transaction">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    auth_capture_transaction
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="go" data-div="cc_check_transaction_status">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    check_transaction_status
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="go" data-div="cc_refund_transaction">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    refund_transaction
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="go" data-div="cc_refund_transaction">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    void_transaction
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                            <li class="go" data-div="cc_download_sdk">
-                                <a href="#" >
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Downloads
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="go" data-div="cc_test_data">
+                    
+                    <li class="go" data-div="cc_newinvoice">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text">
-                                Test data
+                                <b>New Invoice </b>
                             </span>
                         </a>
                     </li>
+                    
+                    <li class="go" data-div="cc_getbanks">
+                        <a href="#" class="dropdown-toggle">
+                            <i class=""></i>
+                            <span class="menu-text">
+                                 Get banks
+                            </span>
+                        </a>
+                    </li>
+
+                     <li class="go" data-div="cc_paymentstatus">
+                        <a href="#" class="dropdown-toggle">
+                            <i class=""></i>
+                            <span class="menu-text">
+                                 Function: Payment status
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li class="go" data-div="cc_currencyexchange">
+                        <a href="#" class="dropdown-toggle">
+                            <i class=""></i>
+                            <span class="menu-text">
+                                 Currency exchange
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <li class="go" data-div="cc_sdk">
+                        <a href="#" class="dropdown-toggle">
+                            <i class=""></i>
+                            <span class="menu-text">
+                                <b>SDK</b>
+                            </span>
+                        </a>
+                    </li>
+                    
                 </ul><!-- /.APD menu -->
 
                 <!-- full-api-menu -->
@@ -471,7 +366,7 @@
                             </span>
                         </a>
                     </li>
-                     <li class="go" data-div="cc_introduction">
+                    <li class="go" data-div="cc_introduction">
                         <a href="#" class="dropdown-toggle">
                             <i class=""></i>
                             <span class="menu-text">
@@ -543,7 +438,7 @@
             window.jQuery || document.write("<script src='assets/js/jquery.js'>" + "<" + "/script>");
         </script>
 
-        
+
         <script type="text/javascript">
             if ('ontouchstart' in document.documentElement)
                 document.write("<script src='../assets/js/jquery.mobile.custom.js'>" + "<" + "/script>");
@@ -552,7 +447,7 @@
 
         <!-- page specific plugin scripts -->
 
-       
+
         <script src="assets/js/jquery-ui.custom.js"></script>
         <script src="assets/js/jquery.ui.touch-punch.js"></script>
         <script src="assets/js/jquery.easypiechart.js"></script>
