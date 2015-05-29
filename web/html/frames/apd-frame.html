@@ -14,7 +14,7 @@
 
         <h1 id="cc_introduction" class="header block lighter color-apc blue">Introduction</h1>
         <p>
-            The AstroPay Direct Streamline API is used to integrate payments via Credit Card, Online Bank
+            The AstroPay Direct Streamline API allows Merchants to integrate payments via Credit Card, Online Bank
             Payment and Cash Payment Methods (e.g. Boleto Bancario in Brazil and OXXO in Mexico).
             Customers do not need to visit an AstroPay page to enter any details, so the payment process is
             “Streamlined”.
@@ -122,8 +122,8 @@
                 Function: New invoice
             </h1>
             <p>
-                This function creates a transaction and returns a URL to redirect the user to a safe page where he is
-                redirected again to his preferred bank page, at which he can confirm his payment.
+                This function creates a transaction and returns a URL to redirect the user to his preferred payment method's page, 
+                at which he can confirm his payment.
             </p>
 
             <p>
@@ -410,93 +410,13 @@
         </div>
         <!--new Invoice-->
 
-        <!--Get banks by country-->
-        <div id="cc_getbanks">
-            <h1 class="header block lighter color-apc blue">
-                Function: Get banks by country
-            </h1>
 
-            <p>
-                This function returns a list of valid banks (those that are available to receive AstroPay payments) for the
-                requested country.
-            </p>
-
-            <p>
-                POST:
-                <br>
-                <i class="ace-icon fa fa-globe bigger-125 color-apc"></i>
-                https://www.astropaycard.com/api_curl/apd/get_banks_by_country
-            </p>
-            Mandatory parameters
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Field</th>
-                        <th>Format</th>
-                        <th>Description</th>
-                        <th>Example </th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>x_login</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant ID in Astropay platform</td>
-                        <td>AsGsd35Grf</td>
-                        <td><span class="badge badge-danger background-color-apc">1</span></td>
-                    </tr>
-                    <tr>
-                        <td>x_trans_key</td>
-                        <td>String (length: 32 chars)</td>
-                        <td>Your merchant password in Astropay platform </td>
-                        <td>D23weF2f4g</td>
-                        <td><span class="badge badge-danger background-color-apc">1</span></td>
-                    </tr>
-                    <tr>
-                        <td>country_code</td>
-                        <td>String(2 chars)</td>
-                        <td>The user’s country. ISO 3166-1 alpha-2 code</td>
-                        <td>BR</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p>
-                <span class="badge badge-danger background-color-apc">1</span>
-                x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
-            </p>
-
-            <h2 id="cc_validator_response">
-                Response
-            </h2>
-            <p>
-                This function, if successful, returns the followin "json":
-            </p>
-            <div class="alert alert-info">
-                [<br>
-                {
-                “code”: ”bank's id code”<br>
-                “name”: “bank's name”,<br>
-                "logo": "url pointing at bank's logo"
-                },<br>
-                {
-                “code”: ”bank's id code”<br>
-                “name”: “bank's name”,<br>
-                "logo": "url pointing at bank's logo"
-                }<br>
-                ]<br>
-            </div>
-        </div>
-        <!--get banks by country-->
 
 
         <!--Return-->
         <div id="cc_x_confirm">
             <h1 class="header block lighter color-apc blue">
-                Return
+                Return redirection
             </h1>
             <p>
                 The return is a redirection made to the merchant's return URL by POST protocol with the following
@@ -625,6 +545,11 @@
                         <td></td>
                     </tr>
                     <tr>
+                        <td>x_currency</td>
+                        <td>The currency sent by the merchant</td>
+                        <td></td>
+                    </tr>
+                    <tr>
                         <td>x_control</td>
                         <td>Control signature</td>
                         <td><span class="badge badge-danger background-color-apc">1</span></td>
@@ -637,13 +562,92 @@
 
         <div class="well">
             <h4 class="red smaller lighter"><i class="ace-icon fa fa-pencil"></i> Note</h4>
-            Both the Return URL and the Confirmation URL are defined by default by the merchant when the
-            merchant registers with AstroPay. These parameters can be over-ridden at any time using the x_return
+            Both the Return URL and the Confirmation URL are defined by default in the Merchant's Panel by the Merchant.
+            These parameters can be over-ridden at any time using the x_return
             and x_confirmation parameters (however, these new urls are only active for that particular transaction,
-            following which we will revert to the default URLs previously provided).
+            following transactions will use the default URLs previously provided).
             <br>
         </div>
 
+        <!--Get banks by country-->
+        <div id="cc_getbanks">
+            <h1 class="header block lighter color-apc blue">
+                Function: Get banks by country
+            </h1>
+
+            <p>
+                This function returns a list of valid banks (those that are available to receive AstroPay payments) for the
+                requested country.
+            </p>
+
+            <p>
+                POST:
+                <br>
+                <i class="ace-icon fa fa-globe bigger-125 color-apc"></i>
+                https://www.astropaycard.com/api_curl/apd/get_banks_by_country
+            </p>
+            Mandatory parameters
+            <table id="simple-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Format</th>
+                        <th>Description</th>
+                        <th>Example </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>x_login</td>
+                        <td>String (length: 32 chars)</td>
+                        <td>Your merchant ID in Astropay platform</td>
+                        <td>AsGsd35Grf</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
+                    </tr>
+                    <tr>
+                        <td>x_trans_key</td>
+                        <td>String (length: 32 chars)</td>
+                        <td>Your merchant password in Astropay platform </td>
+                        <td>D23weF2f4g</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
+                    </tr>
+                    <tr>
+                        <td>country_code</td>
+                        <td>String(2 chars)</td>
+                        <td>The user’s country. ISO 3166-1 alpha-2 code</td>
+                        <td>BR</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <span class="badge badge-danger background-color-apc">1</span>
+                x_login and x_trans_key are your credentials. Remember to find them in the panel, section Integration -> Credentials & Settings.
+            </p>
+
+            <h2 id="cc_validator_response">
+                Response
+            </h2>
+            <p>
+                This function, if successful, returns the followin "json":
+            </p>
+            <div class="alert alert-info">
+                [{<br>
+                 &nbsp; “code”: ”bank's id code”<br>
+                 &nbsp; “name”: “bank's name”,<br>
+                 &nbsp; "logo": "url pointing at bank's logo"<br>
+                },<br>
+                {<br>
+                 &nbsp; “code”: ”bank's id code”<br>
+                 &nbsp; “name”: “bank's name”,<br>
+                 &nbsp; "logo": "url pointing at bank's logo"<br>
+                }]<br>
+            </div>
+        </div>
+        <!--get banks by country-->
 
         <!--Payment status-->
         <div id="cc_paymentstatus">
@@ -652,7 +656,7 @@
             </h1>
 
             <p>
-                The status of a pending transaction can be verified at:
+                The status of a transaction can be verified at:
             </p>
 
             <p>
@@ -689,9 +693,9 @@
                         <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
-                        <td>x_invoice_num</td>
+                        <td>x_invoice</td>
                         <td>String(50)</td>
-                        <td>Unique identifier of Merchant transaction, (Inserted before in function validator)</td>
+                        <td>The unique transaction ID (at the merchant site)</td>
                         <td>dsa3jg4638n</td>
                         <td></td>
                     </tr>
@@ -766,7 +770,7 @@
                     </tr>
                     <tr>
                         <td>cc</td>
-                        <td>Merchant info</td>
+                        <td>Credit Card info</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -833,7 +837,7 @@
             </li>
         </ul>    
         <div class="alert alert-info">
-            $message = $x_login.$result . $valor . $x_invoice;<br>
+            $message = $x_login. $result . $x_amount . $x_invoice;<br>
             $control = strtoupper(hash_hmac('sha256', pack('A*', $message), pack('A*', $secretkey)));
         </div>
 
@@ -862,6 +866,7 @@
                         <th>Format</th>
                         <th>Description</th>
                         <th>Example </th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -871,12 +876,14 @@
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant ID in Astropay platform</td>
                         <td>AsGsd35Grf</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
                         <td>x_trans_key</td>
                         <td>String (length: 32 chars)</td>
                         <td>Your merchant password in Astropay platform </td>
                         <td>D23weF2f4g</td>
+                        <td><span class="badge badge-danger background-color-apc">1</span></td>
                     </tr>
                     <tr>
                         <td>x_country</td>
@@ -884,17 +891,17 @@
                         <td>The ISO code of the country whose
                             currency exchange rate you want to know</td>
                         <td>BR</td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td>x_amount</td>
                         <td>Decimal(max 2 decimal numbers)</td>
                         <td>The amount of USD you want to exchange. Optional. Default: 1</td>
                         <td>199.85</td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>
-
-
 
             <p>
                 <span class="badge badge-danger background-color-apc">1</span>
@@ -944,330 +951,6 @@
         </div>
         <!--Transaction results-->
 
-        <!--Payment method codes-->
-        <div id="cc_pm_codes">
-            <h1 class="header block lighter color-apc blue">
-                Payment method codes
-            </h1>
-
-            <h4 class="header block lighter color-apc blue">
-                Brasil
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>BL</td>
-                        <td>Boleto</td>
-                    </tr>
-                    <tr>
-                        <td>I</td>
-                        <td>Itau</td>
-                    </tr>
-                    <tr>
-                        <td>B</td>
-                        <td>Bradesco</td>
-                    </tr>
-                    <tr>
-                        <td>BB</td>
-                        <td>Banco do Brasil</td>
-                    </tr>
-                    <tr>
-                        <td>H</td>
-                        <td>HSBC</td>
-                    </tr>
-                    <tr>
-                        <td>SB</td>
-                        <td>Santander</td>
-                    </tr>
-                    <tr>
-                        <td>CA</td>
-                        <td>Caixa</td>
-                    </tr>
-                    <tr>
-                        <td>VI</td>
-                        <td>Visa</td>
-                    </tr>
-                    <tr>
-                        <td>MC</td>
-                        <td>MasterCard</td>
-                    </tr>
-                    <tr>
-                        <td>EL</td>
-                        <td>Elo</td>
-                    </tr>
-                    <tr>
-                        <td>DC</td>
-                        <td>Diners Club</td>
-                    </tr>
-                    <tr>
-                        <td>HI</td>
-                        <td>Hipercard</td>
-                    </tr>
-                    <tr>
-                        <td>ML</td>
-                        <td>Cartao MercadoLivre</td>
-                    </tr>
-                    <tr>
-                        <td>AE</td>
-                        <td>Amercian Express</td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <h4 class="header block lighter color-apc blue">
-                Argentina
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>SI</td>
-                        <td>Santander Rio</td>
-                    </tr>
-                    <tr>
-                        <td>PF</td>
-                        <td>Pago Fácil</td>
-                    </tr>
-
-                    <tr>
-                        <td>DM</td>
-                        <td>Dinero Mail (Cash)</td>
-                    </tr>
-                    <tr>
-                        <td>DD</td>
-                        <td>Dinero Mail (Transfer)</td>
-                    </tr>
-                    <tr>
-                        <td>RP</td>
-                        <td>Rapi Pago</td>
-                    </tr>
-                    <tr>
-                        <td>NJ</td>
-                        <td>Tarjeta Naranja</td>
-                    </tr>
-                    <tr>
-                        <td>TS</td>
-                        <td>Tarjeta Shopping</td>
-                    </tr>
-                    <tr>
-                        <td>NT</td>
-                        <td>Nativa</td>
-                    </tr>
-                    <tr>
-                        <td>CS</td>
-                        <td>Cencosud</td>
-                    </tr>
-                    <tr>
-                        <td>CL</td>
-                        <td>Cabal</td>
-                    </tr>
-                    <tr>
-                        <td>AG</td>
-                        <td>Argencard</td>
-                    </tr>
-                    <tr>
-                        <td>VD</td>
-                        <td>Visa Debit</td>
-                    </tr>
-                    <tr>
-                        <td>MD</td>
-                        <td>MasterCard Debit</td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <h4 class="header block lighter color-apc blue">
-                Chile
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>WP</td>
-                        <td>WebPay</td>
-                    </tr>
-                    <tr>
-                        <td>BX</td>
-                        <td>Banco de Chile</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4 class="header block lighter color-apc blue">
-                China
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>EE</td>
-                        <td>ePayLinks</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4 class="header block lighter color-apc blue">
-                Colombia
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>EY</td>
-                        <td>Efecty</td>
-                    </tr>
-                    <tr>
-                        <td>DA</td>
-                        <td>Davivienda</td>
-                    </tr>
-                    <tr>
-                        <td>PC</td>
-                        <td>PSE</td>
-                    </tr>
-                    <tr>
-                        <td>VI</td>
-                        <td>Visa</td>
-                    </tr>
-                    <tr>
-                        <td>MC</td>
-                        <td>MasterCard</td>
-                    </tr>
-                    <tr>
-                        <td>VD</td>
-                        <td>Visa Debit</td>
-                    </tr>
-                    <tr>
-                        <td>MD</td>
-                        <td>MasterCard Debit</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4 class="header block lighter color-apc blue">
-                Peru
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>PA</td>
-                        <td>BCP (via Latin American Payments)</td>
-                    </tr>
-                    <tr>
-                        <td>IB</td>
-                        <td>InterBank</td>
-                    </tr>
-                    <tr>
-                        <td>BP</td>
-                        <td>BBVA</td>
-                    </tr>
-                    <tr>
-                        <td>EF</td>
-                        <td>Pago Efectivo</td>
-                    </tr>
-                </tbody>
-            </table>
-
-
-            <h4 class="header block lighter color-apc blue">
-                Mexico
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>OX</td>
-                        <td>OXXO</td>
-                    </tr>
-                    <tr>
-                        <td>BV</td>
-                        <td>BBVA Bancomer</td>
-                    </tr>
-                    <tr>
-                        <td>BM</td>
-                        <td>Banamex</td>
-                    </tr>
-                    <tr>
-                        <td>SM</td>
-                        <td>Santander</td>
-                    </tr>
-                    <tr>
-                        <td>VI</td>
-                        <td>Visa</td>
-                    </tr>
-                    <tr>
-                        <td>MC</td>
-                        <td>MasterCard</td>
-                    </tr>
-                    <tr>
-                        <td>VD</td>
-                        <td>Visa Debit</td>
-                    </tr>
-                    <tr>
-                        <td>MD</td>
-                        <td>MasterCard Debit</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4 class="header block lighter color-apc blue">
-                Uruguay
-            </h4>
-            <table id="simple-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>RE</td>
-                        <td>Red Pagos</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-        <!--Payment method codes-->
 
 
         <!--Transaction results-->
@@ -1305,6 +988,7 @@
         <!--Transaction results-->
 
 
+        <!--SDK-->
         <div id="cc_sdk">
             <h1 class="header block lighter color-apc blue">
                 SDK
@@ -1329,15 +1013,514 @@
                 $response = $aps->newinvoice('invoice1', 23, 'VI', 'BR', 'user123', '012345678', 'User Name', 'user@gmail.com');<br>
                 $decoded_response = json_decode($response);<br>
                 if($decoded_response->status==0){<br>
-                $url = $decoded_response->link;<br>
-                header("Location: $url");<br>
-                die();<br>
+                &nbsp; &nbsp; &nbsp; $url = $decoded_response->link;<br>
+                &nbsp; &nbsp; &nbsp; header("Location: $url");<br>
+                &nbsp; &nbsp; &nbsp; die();<br>
                 }else{<br>
-                //manage error here<br>
-                $error = $decoded_response->desc;<br>
-                echo $error;<br>
+                &nbsp; &nbsp; &nbsp; //manage error here<br>
+                &nbsp; &nbsp; &nbsp; $error = $decoded_response->desc;<br>
+                &nbsp; &nbsp; &nbsp; echo $error;<br>
                 }
             </div>
+
+            <h2 class="lighter color-apc blue">
+                <b>Streamline class for Java</b>
+            </h2>
+
+            <a class="dd-item col-sm-2" data-id="1"  href="../html/docs/libs/AstroPayStreamline.java" target="_blank">
+                <div class="dd-handle" >
+                    Download
+                    <i class="pull-right bigger-130 ace-icon fa fa-cloud-download color-apd"></i>
+                </div>
+            </a>
+            <br> 
+            <br>
+            <br>
+            <br>
+
+
+            <!--SDK-->
+
+            <!--Payment method codes-->
+            <div id="cc_pm_codes">
+                <h1 class="header block lighter color-apc blue">
+                    Payment method codes
+                </h1>
+
+                <h4 class="header block lighter color-apc blue">
+                    Brasil
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BL</td>
+                            <td>Boleto</td>
+                            <td>https://www.astropaycard.com/images/boletob1.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>I</td>
+                            <td>Itau</td>
+                            <td>https://www.astropaycard.com/images/logo_itau.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>B</td>
+                            <td>Bradesco</td>
+                            <td>https://www.astropaycard.com/images/logo_bradesco.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>BB</td>
+                            <td>Banco do Brasil</td>
+                            <td>https://www.astropaycard.com/images/boleto_bb.jpg</td>
+                        </tr>
+                        <!--               
+                        <tr>
+                            <td>H</td>
+                            <td>HSBC</td>
+                            <td></td>
+                        <tr>
+                            <td>CA</td>
+                            <td>Caixa</td>
+                            <td>https://www.astropaycard.com/images/boletob1.jpg</td>
+                        </tr>
+                        </tr>
+                        -->
+                        <tr>
+                            <td>SB</td>
+                            <td>Santander</td>
+                            <td>https://www.astropaycard.com/images/santander.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>VI</td>
+                            <td>Visa</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo-visa.png</td>
+                        </tr>
+                        <tr>
+                            <td>MC</td>
+                            <td>MasterCard</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>EL</td>
+                            <td>Elo</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_elo.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>DC</td>
+                            <td>Diners Club</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_diners_club.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>HI</td>
+                            <td>Hipercard</td>
+                            <td>https://www.astropaycard.com/images/hipercard.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>ML</td>
+                            <td>Cartao MercadoLivre</td>
+                            <td>https://www.astropaycard.com/images/mercado_libre.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>AE</td>
+                            <td>Amercian Express</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_americanexpress.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h4 class="header block lighter color-apc blue">
+                    Argentina
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SI</td>
+                            <td>Santander Rio</td>
+                            <td>https://www.astropaycard.com/images/santander.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>RL</td>
+                            <td>Red Link</td>
+                            <td>https://astropaycard.com/images/link.png</td>
+                        </tr>
+                        <tr>
+                            <td>PF</td>
+                            <td>Pago Fácil</td>
+                            <td>https://astropaycard.com/images/pagofacil.png</td>
+                        </tr>
+                        <tr>
+                            <td>DM</td>
+                            <td>Dinero Mail (Cash)</td>
+                            <td>https://astropaycard.com/images/ripsa_cobro_express.png</td>
+                        </tr>
+                        <tr>
+                            <td>DD</td>
+                            <td>Dinero Mail (Transfer)</td>
+                            <td>https://astropaycard.com/images/DMlogo.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>RP</td>
+                            <td>Rapi Pago</td>
+                            <td>https://astropaycard.com/images/rapi-pago.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>VI</td>
+                            <td>Visa</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo-visa.png</td>
+                        </tr>
+                        <tr>
+                            <td>MC</td>
+                            <td>MasterCard</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>NJ</td>
+                            <td>Tarjeta Naranja</td>
+                            <td>https://astropaycard.com/images/naranja.png</td>
+                        </tr>
+                        <tr>
+                            <td>TS</td>
+                            <td>Tarjeta Shopping</td>
+                            <td>https://astropaycard.com/images/shopping.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>NT</td>
+                            <td>Nativa</td>
+                            <td>https://astropaycard.com/images/nativa.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>CS</td>
+                            <td>Cencosud</td>
+                            <td>https://astropaycard.com/images/cencosud.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>CL</td>
+                            <td>Cabal</td>
+                            <td>https://astropaycard.com/images/cabal.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>AG</td>
+                            <td>Argencard</td>
+                            <td>https://astropaycard.com/images/argencard.png</td>
+                        </tr>
+                        <tr>
+                            <td>VD</td>
+                            <td>Visa Debit</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo-visa-DEBIT.png</td>
+                        </tr>
+                        <tr>
+                            <td>MD</td>
+                            <td>MasterCard Debit</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h4 class="header block lighter color-apc blue">
+                    Chile
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>WP</td>
+                            <td>WebPay</td>
+                            <td>https://www.astropaycard.com/images/logos/logo_web-pay-transbank.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>BX</td>
+                            <td>Banco de Chile</td>
+                            <td>https://www.astropaycard.com/images/banco-de-chile.gif</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="header block lighter color-apc blue">
+                    China
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EE</td>
+                            <td>ePayLinks</td>
+                            <td>https://www.astropaycard.com/images/epay.png</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="header block lighter color-apc blue">
+                    Colombia
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>EY</td>
+                            <td>Efecty</td>
+                            <td>https://www.astropaycard.com/images/efecty.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>DA</td>
+                            <td>Davivienda</td>
+                            <td>https://www.astropaycard.com/images/davivenda.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>PC</td>
+                            <td>PSE</td>
+                            <td>https://www.astropaycard.com/images/pse.png</td>
+                        </tr>
+                        <tr>
+                            <td>Almacenes Éxito</td>
+                            <td>EX</td>
+                            <td>https://www.astropaycard.com/images/almacenes_exito.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>Banco de Occidente</td>
+                            <td>OC</td>
+                            <td>https://www.astropaycard.com/images/banco_de_occidente.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>Carulla</td>
+                            <td>CR</td>
+                            <td>https://www.astropaycard.com/images/carulla.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>Empresa de Energía del Quindio</td>
+                            <td>EQ</td>
+                            <td>https://www.astropaycard.com/images/empresa_de_energia_del_quindio.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>Surtimax</td>
+                            <td>SX</td>
+                            <td>https://www.astropaycard.com/images/surtimax.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>VI</td>
+                            <td>Visa</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo-visa.png</td>
+                        </tr>
+                        <tr>
+                            <td>MC</td>
+                            <td>MasterCard</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>VD</td>
+                            <td>Visa Debit</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo-visa-DEBIT.png</td>
+                        </tr>
+                        <tr>
+                            <td>MD</td>
+                            <td>MasterCard Debit</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="header block lighter color-apc blue">
+                    Peru
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PA</td>
+                            <td>BCP (via Latin American Payments)</td>
+                            <td>https://astropaycard.com/images/lap.gif</td>
+                        </tr>
+                        <tr>
+                            <td>IB</td>
+                            <td>InterBank</td>
+                            <td>https://astropaycard.com/images/interbank.png</td>
+                        </tr>
+                        <tr>
+                            <td>BP</td>
+                            <td>BBVA</td>
+                            <td>https://astropaycard.com/images/bbva.png</td>
+                        </tr>
+                        <tr>
+                            <td>EF</td>
+                            <td>Pago Efectivo</td>
+                            <td>https://astropaycard.com/images/logopagoefectivo.png</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
+                <h4 class="header block lighter color-apc blue">
+                    Mexico
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>OX</td>
+                            <td>OXXO</td>
+                            <td>https://astropaycard.com/images/logo-oxxo.png</td>
+                        </tr>
+                        <tr>
+                            <td>BV</td>
+                            <td>BBVA Bancomer</td>
+                            <td>https://astropaycard.com/images/bancomer_m.png</td>
+                        </tr>
+                        <tr>
+                            <td>BM</td>
+                            <td>Banamex</td>
+                            <td>https://astropaycard.com/images/bancomex_m.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>SM</td>
+                            <td>Santander</td>
+                            <td>https://astropaycard.com/images/santander_m.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>VI</td>
+                            <td>Visa</td>
+                            <td>https://astropaycard.com/images/cielo/logo-visa.png</td>
+                        </tr>
+                        <tr>
+                            <td>MC</td>
+                            <td>MasterCard</td>
+                            <td>https://astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>VD</td>
+                            <td>Visa Debit</td>
+                            <td>https://astropaycard.com/images/cielo/logo-visa-DEBIT.png</td>
+                        </tr>
+                        <tr>
+                            <td>MD</td>
+                            <td>MasterCard Debit</td>
+                            <td>https://astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="header block lighter color-apc blue">
+                    Uruguay
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>RE</td>
+                            <td>Red Pagos</td>
+                            <td>https://www.astropaycard.com/images/logo_redpagos.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h4 class="header block lighter color-apc blue">
+                    Turkey
+                </h4>
+                <table id="simple-table" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Description</th>
+                            <th>Logos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vakifbank</td>
+                            <td>VA</td>
+                            <td>https://www.astropaycard.com/images/turkey/VAKIFBANK_TL.jpg</td>
+                        </tr>
+                        <tr>
+                            <td>HT</td>
+                            <td>HSBC</td>
+                            <td>https://www.astropaycard.com/images/turkey/HSBC_BANK_TL.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>TT</td>
+                            <td>Teb Bank</td>
+                            <td>https://www.astropaycard.com/images/turkey/TEB_BANK_TL.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>GA</td>
+                            <td>Garanti</td>
+                            <td>https://www.astropaycard.com/images/garanti.png</td>
+                        </tr>
+                        <tr>
+                            <td>IS</td>
+                            <td>Isbank</td>
+                            <td>https://www.astropaycard.com/images/isbankasi.png</td>
+                        </tr>
+                        <tr>
+                            <td>AK</td>
+                            <td>Akbank</td>
+                            <td>https://www.astropaycard.com/images/turkey/AKBANK_TL.jpeg</td>
+                        </tr>
+                        <tr>
+                            <td>VI</td>
+                            <td>Visa</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo-visa.png</td>
+                        </tr>
+                        <tr>
+                            <td>MC</td>
+                            <td>Mastercard</td>
+                            <td>https://www.astropaycard.com/images/cielo/logo_mastercard.jpg</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <!--Payment method codes-->
+
+
 
         </div>
         <!--Payment types-->

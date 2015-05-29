@@ -39,7 +39,7 @@
 
 
             <!-- request cashout-->
-            <div>
+            <div id="cc_request_cashout">
                 <h1 class="header block lighter color-cashout blue">Function: request_cashout</h1>
                 <p>
                     This function request for a cashout.
@@ -269,7 +269,7 @@
 
 
             <!-- check cashout status-->
-            <div>
+            <div id="cc_check_status">
                 <h1 class="header block lighter color-cashout blue">Function: check_status_cashout</h1>
                 <p>
                     This function checks the status of a cashout.
@@ -376,7 +376,7 @@
 
 
             <!-- cancel cashout-->
-            <div>
+            <div id="cc_cancel_cashout">
                 <h1 class="header block lighter color-cashout">Function: cancel_cashout</h1>
                 <p>
                     This function cancels a cashout. The status of the cashout should be “Pending”.
@@ -481,7 +481,7 @@
 
 
             <!-- notifications -->
-            <div>
+            <div id="cc_notifications">
                 <h1 class="header block lighter color-cashout">Notification parameters</h1>
                 <p>
                     The notification will inform that the status of a cashout changed. After that you will need to ask the
@@ -590,7 +590,7 @@
                 </tbody>
             </table>
 
-            <h2 id="cc_references">Error code references</h2>
+            <h2 id="cc_codes">Error code references</h2>
 
             <table id="simple-table" class="table table-striped table-bordered table-hover">
                 <thead>
@@ -694,23 +694,24 @@
                 {“status”:0, ”desc”:”Error:”Invalid credentials”, ”error_code”:”401”}
             </div>
 
+            <div  id="cc_test">
+                <h1 class="header block lighter color-cashout ">Development and testing</h1>
 
-            <h1 class="header block lighter color-cashout ">Development and testing</h1>
+                <p>
+                    There is a test environment available for integration development and testing, which simulates most of the
+                    requests and transaction types available in the platform.
+                </p>
+                <p>
+                    To access it, you need to use the subdomain sandbox. So, the base URLs for development are:
+                </p>
 
-            <p>
-                There is a test environment available for integration development and testing, which simulates most of the
-                requests and transaction types available in the platform.
-            </p>
-            <p>
-                To access it, you need to use the subdomain sandbox. So, the base URLs for development are:
-            </p>
+                <i class="ace-icon fa fa-globe bigger-125 color-cashout"></i>
+                https://sandbox.astropaycard.com/api_curl/cashout_api/
 
-            <i class="ace-icon fa fa-globe bigger-125 color-cashout"></i>
-            https://sandbox.astropaycard.com/api_curl/cashout_api/
-
-            <p>
-                Please note that in the test environment no transactions will actually processed.
-            </p>
+                <p>
+                    Please note that in the test environment no transactions will actually processed.
+                </p>
+            </div>
 
         </div>
     </body>
